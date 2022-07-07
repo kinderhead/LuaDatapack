@@ -30,6 +30,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	shadow 'org.squiddev:Cobalt:0.5.5'
+	shadow 'commons-io:commons-io:2.11.0'
 }
 
 shadowJar {

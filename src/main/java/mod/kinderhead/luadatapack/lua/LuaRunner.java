@@ -21,11 +21,24 @@ import org.squiddev.cobalt.lib.Utf8Lib;
 import mod.kinderhead.luadatapack.LuaDatapack;
 
 public class LuaRunner {
-    public static void Run(String code) {
-        Run(code, "main");
+    /**
+     * Returns true if the code executed successfully
+     * 
+     * @param code
+     * @return exit code
+     */
+    public static boolean Run(String code) {
+        return Run(code, "main");
     }
 
-    public static void Run(String code, String name) {
+    /**
+     * Returns true if the code executed successfully
+     * 
+     * @param code
+     * @param name
+     * @return exit code
+     */
+    public static boolean Run(String code, String name) {
         LuaState state = LuaState.builder().build();
 
         LuaTable _G = new LuaTable();
@@ -43,8 +56,10 @@ public class LuaRunner {
         _G.rawset("loadfile", Constants.NIL);
         try {
             LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
+            return true;
         } catch (LuaError | IOException | CompileException | UnwindThrowable e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
+            return false;
         }
     }
 }
