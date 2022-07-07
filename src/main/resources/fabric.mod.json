@@ -9,12 +9,12 @@
     "kinderhead"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://github.com/kinderhead/LuaDatapack",
+    "sources": "https://github.com/kinderhead/LuaDatapack"
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "",
 
   "environment": "*",
   "entrypoints": {
@@ -23,7 +23,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "luadatapack.mixins.json"
   ],
 
   "depends": {
