@@ -1,14 +1,24 @@
 package mod.kinderhead.luadatapack.lua;
 
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.LoadState;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.compiler.LuaC;
-import org.luaj.vm2.lib.BaseLib;
-import org.luaj.vm2.lib.Bit32Lib;
-import org.luaj.vm2.lib.MathLib;
-import org.luaj.vm2.lib.StringLib;
-import org.luaj.vm2.lib.TableLib;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import org.squiddev.cobalt.Constants;
+import org.squiddev.cobalt.LuaError;
+import org.squiddev.cobalt.LuaState;
+import org.squiddev.cobalt.LuaTable;
+import org.squiddev.cobalt.UnwindThrowable;
+import org.squiddev.cobalt.compiler.CompileException;
+import org.squiddev.cobalt.compiler.LoadState;
+import org.squiddev.cobalt.lib.BaseLib;
+import org.squiddev.cobalt.lib.Bit32Lib;
+import org.squiddev.cobalt.lib.MathLib;
+import org.squiddev.cobalt.lib.StringLib;
+import org.squiddev.cobalt.lib.TableLib;
+import org.squiddev.cobalt.lib.Utf8Lib;
+
+import mod.kinderhead.luadatapack.LuaDatapack;
 
 public class LuaRunner {
     public static void Run(String code) {
@@ -16,17 +26,25 @@ public class LuaRunner {
     }
 
     public static void Run(String code, String name) {
-        Globals globals = new Globals();
-        globals.load(new BaseLib());
-        globals.load(new Bit32Lib());
-        globals.load(new TableLib());
-        globals.load(new StringLib());
-        globals.load(new MathLib());
+        LuaState state = LuaState.builder().build();
 
-        LoadState.install(globals);
-        LuaC.install(globals);
+        LuaTable _G = new LuaTable();
+        state.setupThread(_G);
 
-        LuaValue chunk = globals.load(code, name, globals);
-        chunk.call();
+        _G.load( state, new BaseLib() );
+        _G.load( state, new TableLib() );
+        _G.load( state, new StringLib() );
+        _G.load( state, new MathLib() );
+        _G.load( state, new Bit32Lib() );
+        _G.load( state, new Utf8Lib() );
+
+        _G.rawset("print", Constants.NIL);
+        _G.rawset("dofile", Constants.NIL);
+        _G.rawset("loadfile", Constants.NIL);
+        try {
+            LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
+        } catch (LuaError | IOException | CompileException | UnwindThrowable e) {
+            LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
+        }
     }
 }
