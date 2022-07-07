@@ -2,6 +2,7 @@ plugins {
 	id 'com.github.johnrengelman.shadow' version '7.1.2'
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
+	id 'java'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -19,11 +20,6 @@ repositories {
     }
 }
 
-configurations {
-    shade { transitive = false }
-    implementation.extendsFrom shade
-}
-
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -33,15 +29,15 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	shade 'org.squiddev:Cobalt:0.5.5'
+	shadow 'org.squiddev:Cobalt:0.5.5'
 }
 
 processResources {
-	inputs.property "version", project.version
-
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	
 	from(sourceSets.main.resources.srcDirs) {
 		include "fabric.mod.json"
-		expand "version": project.version
+		expand "version": version
 	}
 
 	from(sourceSets.main.resources.srcDirs) {
