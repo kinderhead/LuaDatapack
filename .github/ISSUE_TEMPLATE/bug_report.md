@@ -1,27 +1,25 @@
 ---
 name: Bug report
-about: A report to describe something not working expectedly.
+about: A report to describe something not working expectedly
 title: ''
 labels: bug
 assignees: kinderhead
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Problematic script or function**
+```
+say({foo="bar"})
+```
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Use this script '...'
-2. Call this function '...'
-3. Summon entity '...'
+**Error message or response**
+`Cannot convert type "table" to type "string"`
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected outcome**
+`[Server] foo="bar"}`
 
-**Desktop (please complete the following information):**
- - OS: [e.g. Windows]
- - Version [e.g. 11]
-
-**Additional context**
-Add any other context about the problem here.
+**Work around**
+```
+local json = require("std:json")
+say(json.encode({foo="bar"}))
+```
