@@ -28,13 +28,17 @@ Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar`
 
 The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua
 
-## Included libraries
+## Standard library
 
-A few utility libraries are included by default.
+A few utility libraries are included by default
 
 |Library|Path|
 |---|---|
 |[json.lua](https://github.com/rxi/json.lua)|`std:json`|
+
+## Contributing
+
+Any help is appreciated. Issues and feature requests can be shared [here](https://github.com/kinderhead/LuaDatapack/issues)
 
 ## Links
 

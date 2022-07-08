@@ -4,7 +4,7 @@
   "description": "Types for the lua api",
   "main": "index.d.ts",
   "scripts": {
-    "doc": "npx typedoc --out ../docs --entryPointStrategy expand ./src --githubPages true"
+    "doc": "npx typedoc --out ../docs --entryPointStrategy expand ./src --githubPages true --watch"
   },
   "repository": {
     "type": "git",
