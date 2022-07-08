@@ -2,13 +2,9 @@ package mod.kinderhead.luadatapack.lua.api;
 
 import org.squiddev.cobalt.Constants;
 import org.squiddev.cobalt.LuaError;
-import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaUserdata;
 import org.squiddev.cobalt.LuaValue;
-import org.squiddev.cobalt.UnwindThrowable;
-import org.squiddev.cobalt.function.OneArgFunction;
-import org.squiddev.cobalt.function.TwoArgFunction;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
@@ -57,22 +53,25 @@ public class MCLuaFactory {
     public static LuaValue get(Entity entity) {
         LuaTable table = new LuaTable();
 
-        table.rawset("get_pos", new OneArgFunction() {
-            @Override
-            public LuaValue call(LuaState state, LuaValue arg1) throws LuaError, UnwindThrowable {
-                Entity self = toEntity(arg1);
-                return get(self.getPos());
-            }
-        });
+        table.rawset("get_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            Entity self = toEntity(arg1);
+            return get(self.getPos());
+        }));
 
-        table.rawset("set_pos", new TwoArgFunction() {
-            @Override
-            public LuaValue call(LuaState state, LuaValue arg1, LuaValue arg2) throws LuaError, UnwindThrowable {
-                Entity self = toEntity(arg1);
-                LuaDatapack.SERVER.getCommandManager().execute(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + ((LuaTable) arg2).rawget("x").checkDouble() + " " + ((LuaTable) arg2).rawget("y").checkDouble() + " " + ((LuaTable) arg2).rawget("z").checkDouble());
-                return null;
-            }
-        });
+        table.rawset("set_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            Entity self = toEntity(arg1);
+            LuaDatapack.SERVER.getCommandManager().execute(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + ((LuaTable) arg2).rawget("x").checkDouble() + " " + ((LuaTable) arg2).rawget("y").checkDouble() + " " + ((LuaTable) arg2).rawget("z").checkDouble());
+            return null;
+        }));
+
+        table.rawset("get_air", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            return valueOf(toEntity(arg1).getAir());
+        }));
+
+        table.rawset("set_air", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            toEntity(arg1).setAir(arg2.checkInteger());
+            return null;
+        }));
 
         table.rawset("_obj", new LuaUserdata(entity));
         return table;

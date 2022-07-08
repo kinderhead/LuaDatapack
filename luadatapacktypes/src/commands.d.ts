@@ -1,7 +1,6 @@
 /** @noSelfInFile */
 
 /// <reference path='vec3d.d.ts'/>
-/// <reference path='source.d.ts'/>
 /// <reference path='entity.d.ts'/>
 
 /**
@@ -24,8 +23,3 @@ declare function tp(location : Vec3d) : void;
 declare function tp(entity : Entity, location : Vec3d) : void;
 
 declare let teleport : typeof tp;
-
-/**
- * Data about the executor. Basically equivalent as `@s`
- */
-declare let src : Source;
