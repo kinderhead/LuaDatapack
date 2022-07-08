@@ -4,7 +4,7 @@
   "description": "Types for the lua api",
   "main": "index.d.ts",
   "scripts": {
-    "doc": "npx typedoc --plugin typedoc-plugin-markdown --out ../docs/doc index.d.ts"
+    "doc": "npx typedoc --plugin typedoc-plugin-markdown --out ../docs/doc --entryPointStrategy expand ./src"
   },
   "repository": {
     "type": "git",
