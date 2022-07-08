@@ -15,14 +15,19 @@ public class ReloadListener implements IdentifiableResourceReloadListener, Synch
     @Override
     public void reload(ResourceManager manager) {
         Files.clear();
+        int count = 0;
+
         for(var i : manager.findResources("lua", (path) -> true).entrySet()) {
             try {
                 String code = IOUtils.toString(i.getValue().getInputStream(), StandardCharsets.UTF_8);
                 Files.set(new Identifier(i.getKey().getNamespace(), i.getKey().getPath().replaceFirst("lua/", "")), code);
+                count++;
             } catch (IOException e) {
                 LuaDatapack.LOGGER.error("Error reading file " + i.getKey().toString(), e);
             }
         }
+
+        LuaDatapack.LOGGER.info("Loaded " + String.valueOf(count) + " lua scripts");
     }
 
     @Override

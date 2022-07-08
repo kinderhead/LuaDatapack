@@ -12,10 +12,12 @@ import net.minecraft.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.squiddev.cobalt.LuaTable;
 
 import mod.kinderhead.luadatapack.datapack.Files;
 import mod.kinderhead.luadatapack.datapack.ReloadListener;
 import mod.kinderhead.luadatapack.lua.LuaRunner;
+import mod.kinderhead.luadatapack.lua.api.MCLuaFactory;
 
 public class LuaDatapack implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("LuaDatapack");
@@ -41,7 +43,10 @@ public class LuaDatapack implements ModInitializer {
 							return -1;
 						}
 
-						if (LuaRunner.Run(code, id.toString())) {
+						LuaTable env = new LuaTable();
+						env.rawset("src", MCLuaFactory.get(ctx.getSource()));
+
+						if (LuaRunner.Run(code, id.toString(), env)) {
 							return 1;
 						}
 

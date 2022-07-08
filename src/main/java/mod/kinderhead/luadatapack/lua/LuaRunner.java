@@ -50,12 +50,16 @@ public class LuaRunner {
         // LuaDatapack api
         _G.load(state, new CommandsLib());
 
+        LuaDatapack.LOGGER.info("Running lua script: " + name);
         try {
             LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
             return true;
         } catch (LuaError | IOException | CompileException | UnwindThrowable e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
             return false;
+        } catch (Exception e) {
+            LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
+            throw e;
         }
     }
 }
