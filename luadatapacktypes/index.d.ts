@@ -1,0 +1,1 @@
+declare function say(this : void, msg : string) : void

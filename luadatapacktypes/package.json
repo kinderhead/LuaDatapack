@@ -1,0 +1,29 @@
+{
+  "name": "luadatapacktypes",
+  "version": "0.1.0-alpha",
+  "description": "Types for the lua api",
+  "main": "index.d.ts",
+  "scripts": {
+    "doc": "npx typedoc --plugin typedoc-plugin-markdown --out ../wiki index.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinderhead/LuaDatapack.git"
+  },
+  "keywords": [
+    "typescript",
+    "types",
+    "minecraft",
+    "lua"
+  ],
+  "author": "kinderhead",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kinderhead/LuaDatapack/issues"
+  },
+  "homepage": "https://github.com/kinderhead/LuaDatapack#readme",
+  "devDependencies": {
+    "typedoc": "^0.23.6",
+    "typedoc-plugin-markdown": "^3.13.3"
+  }
+}
