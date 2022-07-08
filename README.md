@@ -19,4 +19,4 @@ Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar.lua`
 
 ## Api
 
-The api can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua.
+The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua.
