@@ -1,1 +1,7 @@
-declare function say(this : void, msg : string) : void
+/** @noSelfInFile */
+
+/**
+ * Runs the `say` command
+ * @param msg Message
+ */
+declare function say(msg : string) : void
