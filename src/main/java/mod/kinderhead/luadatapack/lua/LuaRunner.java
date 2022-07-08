@@ -19,41 +19,37 @@ import org.squiddev.cobalt.lib.TableLib;
 import org.squiddev.cobalt.lib.Utf8Lib;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
+import mod.kinderhead.luadatapack.lua.api.CommandsLib;
 
 public class LuaRunner {
-    /**
-     * Returns true if the code executed successfully
-     * 
-     * @param code
-     * @return exit code
-     */
     public static boolean Run(String code) {
-        return Run(code, "main");
+        return Run(code, "main", new LuaTable());
     }
 
-    /**
-     * Returns true if the code executed successfully
-     * 
-     * @param code
-     * @param name
-     * @return exit code
-     */
     public static boolean Run(String code, String name) {
+        return Run(code, name, new LuaTable());
+    }
+
+    public static boolean Run(String code, String name, LuaTable env) {
         LuaState state = LuaState.builder().build();
 
-        LuaTable _G = new LuaTable();
+        LuaTable _G = env;
         state.setupThread(_G);
 
-        _G.load( state, new BaseLib() );
-        _G.load( state, new TableLib() );
-        _G.load( state, new StringLib() );
-        _G.load( state, new MathLib() );
-        _G.load( state, new Bit32Lib() );
-        _G.load( state, new Utf8Lib() );
+        _G.load(state, new BaseLib());
+        _G.load(state, new TableLib());
+        _G.load(state, new StringLib());
+        _G.load(state, new MathLib());
+        _G.load(state, new Bit32Lib());
+        _G.load(state, new Utf8Lib());
 
         _G.rawset("print", Constants.NIL);
         _G.rawset("dofile", Constants.NIL);
         _G.rawset("loadfile", Constants.NIL);
+
+        // LuaDatapack api
+        _G.load(state, new CommandsLib());
+
         try {
             LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
             return true;

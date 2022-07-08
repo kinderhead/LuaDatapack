@@ -1,0 +1,4 @@
+{
+    "text.luadatapack.file_not_found": "Could not find lua function %s",
+    "text.luadatapack.lua_error": "Error executing script %s. Check console for details"
+}
