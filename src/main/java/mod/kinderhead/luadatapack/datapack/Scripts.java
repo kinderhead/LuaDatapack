@@ -6,7 +6,7 @@ import java.util.Map;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import net.minecraft.util.Identifier;
 
-public class Files {
+public class Scripts {
     private static Map<Identifier, String> files = new HashMap<Identifier, String>();
 
     public static String get(Identifier id) {

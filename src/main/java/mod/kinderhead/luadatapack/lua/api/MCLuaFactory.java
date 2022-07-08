@@ -43,7 +43,7 @@ public class MCLuaFactory {
 
     public static Vec3d toVec(LuaValue val) {
         try {
-            return new Vec3d(((LuaTable) val).rawget("x").checkDouble(), ((LuaTable) val).rawget("y").checkDouble(), ((LuaTable) val).rawget("z").checkDouble());
+            return new Vec3d(val.checkTable().rawget("x").checkDouble(), val.checkTable().rawget("y").checkDouble(), val.checkTable().rawget("z").checkDouble());
         } catch (LuaError e) {
             e.printStackTrace();
             return null;
@@ -60,7 +60,7 @@ public class MCLuaFactory {
 
         table.rawset("set_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
             Entity self = toEntity(arg1);
-            LuaDatapack.SERVER.getCommandManager().execute(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + ((LuaTable) arg2).rawget("x").checkDouble() + " " + ((LuaTable) arg2).rawget("y").checkDouble() + " " + ((LuaTable) arg2).rawget("z").checkDouble());
+            LuaDatapack.SERVER.getCommandManager().execute(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + arg2.checkTable().rawget("x").checkDouble() + " " + arg2.checkTable().rawget("y").checkDouble() + " " + arg2.checkTable().rawget("z").checkDouble());
             return null;
         }));
 

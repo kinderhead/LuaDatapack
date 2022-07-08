@@ -20,6 +20,7 @@ import org.squiddev.cobalt.lib.Utf8Lib;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.api.CommandsLib;
+import mod.kinderhead.luadatapack.lua.api.LuastdLib;
 
 public class LuaRunner {
     public static boolean Run(String code) {
@@ -48,6 +49,7 @@ public class LuaRunner {
         _G.rawset("loadfile", Constants.NIL);
 
         // LuaDatapack api
+        _G.load(state, new LuastdLib());
         _G.load(state, new CommandsLib());
 
         LuaDatapack.LOGGER.info("Running lua script: " + name);

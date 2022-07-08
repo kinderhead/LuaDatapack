@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.squiddev.cobalt.LuaTable;
 
-import mod.kinderhead.luadatapack.datapack.Files;
+import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.datapack.ReloadListener;
 import mod.kinderhead.luadatapack.lua.LuaRunner;
 import mod.kinderhead.luadatapack.lua.api.MCLuaFactory;
@@ -37,7 +37,7 @@ public class LuaDatapack implements ModInitializer {
 					.executes(ctx -> {
 						var id = IdentifierArgumentType.getIdentifier(ctx, "name");
 
-						String code = Files.get(id);
+						String code = Scripts.get(id);
 						if (code == null) {
 							ctx.getSource().sendFeedback(Text.translatable("text.luadatapack.file_not_found", id.toString()), false);
 							return -1;

@@ -9,17 +9,32 @@ Allows lua scripts to be ran in Minecraft.
 
 Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.lua`
 
+## Features
+
+* Uses [Cobalt](https://github.com/SquidDev/Cobalt) under the hood, which gives fast execution times
+* Scripts can be included from datapacks using `require` and use Minecraft's namespaced id system
+* Supports a few common utility libraries
+    * [json.lua](https://github.com/rxi/json.lua)
+
 ## Commands
 
 ### `/lua`
 
 Usage: `/lua <name>`
 
-Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar.lua`
+Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar`
 
 ## Api
 
-The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua.
+The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua
+
+## Included libraries
+
+A few utility libraries are included by default.
+
+|Library|Path|
+|---|---|
+|[json.lua](https://github.com/rxi/json.lua)|`std:json`|
 
 ## Links
 

@@ -34,7 +34,7 @@ public class CommandsLib implements LuaLibrary {
         @Override
         public LuaValue call(LuaState state) throws LuaError, UnwindThrowable {
             LuaTable _G = state.getCurrentThread().getfenv();
-            ServerCommandSource source = ((LuaTable) _G.rawget("src")).rawget("_obj").checkUserdata(ServerCommandSource.class);
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
 
             switch (opcode) {
                 case 0:
@@ -57,11 +57,11 @@ public class CommandsLib implements LuaLibrary {
         @Override
         public LuaValue call(LuaState state, LuaValue arg) throws LuaError, UnwindThrowable {
             LuaTable _G = state.getCurrentThread().getfenv();
-            ServerCommandSource source = ((LuaTable) _G.rawget("src")).rawget("_obj").checkUserdata(ServerCommandSource.class);
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
 
             switch (opcode) {
                 case 0:
-                    LuaDatapack.SERVER.getCommandManager().execute(source, "say " + arg.checkString().strip());
+                    LuaDatapack.SERVER.getCommandManager().execute(source, "say " + arg.strvalue().checkString().strip());
                     break;
             
                 default:
@@ -76,7 +76,7 @@ public class CommandsLib implements LuaLibrary {
         @Override
         public Varargs invoke(LuaState state, Varargs args) throws LuaError, UnwindThrowable {
             LuaTable _G = state.getCurrentThread().getfenv();
-            ServerCommandSource source = ((LuaTable) _G.rawget("src")).rawget("_obj").checkUserdata(ServerCommandSource.class);
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
 
             switch (opcode) {
                 case 0:

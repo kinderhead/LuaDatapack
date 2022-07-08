@@ -1,3 +1,5 @@
+/** @noSelfInFile */
+
 /// <reference path='source.d.ts'/>
 
 /**
