@@ -2,9 +2,11 @@
   "name": "luadatapacktypes",
   "version": "0.2.0-alpha",
   "description": "Types for the lua api",
-  "main": "index.d.ts",
   "scripts": {
     "doc": "npx typedoc --out ../docs --entryPointStrategy expand ./src --githubPages true --watch"
+  },
+  "bin": {
+
   },
   "repository": {
     "type": "git",
@@ -14,7 +16,8 @@
     "typescript",
     "types",
     "minecraft",
-    "lua"
+    "lua",
+    "typescripttolua"
   ],
   "author": "kinderhead",
   "license": "MIT",

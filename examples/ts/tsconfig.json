@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"lib": ["esnext"],
+		"moduleResolution": "node",
+		"types": [],
+		"strict": true,
+		"outDir": "build"
+	},
+	"tstl": {
+		"luaTarget": "5.1",
+		"luaLibImport": "inline"
+	},
+	"include": [
+		"src/**/*",
+		"../../luadatapacktypes/src"
+	]
+}

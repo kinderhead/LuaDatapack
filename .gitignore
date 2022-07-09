@@ -4,6 +4,7 @@
 build/
 out/
 classes/
+bin/main
 
 # eclipse
 
@@ -20,7 +21,6 @@ classes/
 
 .settings/
 .vscode/
-bin/
 .classpath
 .project
 

@@ -7,7 +7,7 @@
  * Runs the `say` command
  * @param msg Message
  */
-declare function say(msg : string) : void;
+declare function say(msg : string | number | boolean) : void;
 
 /**
  * Teleports the current entity
