@@ -22,6 +22,7 @@ public class MCLuaFactory {
         table.rawset("_obj", new LuaUserdata(source));
         table.rawset("position", LuaUtils.readonly(get(source.getPosition())));
         table.rawset("name", valueOf(source.getName()));
+        //table.rawset("dimension", valueOf(source.getWorld()))
         
         if (source.getEntity() == null) {
             table.rawset("entity", Constants.NIL);

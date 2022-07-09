@@ -22,6 +22,8 @@ import net.minecraft.command.EntitySelectorReader;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 public class LuastdLib implements LuaLibrary {
     @Override
@@ -60,6 +62,14 @@ public class LuastdLib implements LuaLibrary {
             ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
             LuaDatapack.SERVER.getCommandManager().execute(source, arg1.checkString().strip());
             return Constants.NIL;
+        }));
+
+        env.rawset("get_block", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
+            LuaTable _G = state.getCurrentThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+
+            String id = Registry.BLOCK.getId(source.getWorld().getBlockState(new BlockPos(MCLuaFactory.toVec(arg1))).getBlock()).toString();
+            return ValueFactory.valueOf(id);
         }));
 
         return env;

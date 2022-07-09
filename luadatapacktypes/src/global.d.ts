@@ -19,3 +19,12 @@ declare function selector(tag : string) : Array<Entity>;
  * @param cmd Command
  */
 declare function command(cmd : string) : void;
+
+/**
+ * Gets the block id at a position in the current dimension
+ * 
+ * @see {@link src}
+ * 
+ * @param pos Position
+ */
+declare function get_block(pos : Vec3d) : string;

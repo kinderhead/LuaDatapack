@@ -1,9 +1,10 @@
-## 0.2.0-alpha (wip)
+## 0.2.0-alpha
 
 * Api features
     * `entity.get_armor`
     * `entity.get_age`
     * `entity.set_age`
+    * `get_block`
 
 ## 0.1.0-alpha
 
