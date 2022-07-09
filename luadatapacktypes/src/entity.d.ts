@@ -68,4 +68,24 @@ interface Entity {
      * @see {@link is_living_entity}
      */
     get_armor() : number | null;
+
+    /**
+     * Gets an entity's age in ticks
+     * 
+     * @remarks
+     * Entity must be living
+     * @see {@link is_living_entity}
+     */
+    get_age() : number | null;
+
+    /**
+     * Sets an entity's age in ticks
+     * 
+     * @remarks
+     * Entity must be living
+     * @see {@link is_living_entity}
+     * 
+     * @param age Age
+     */
+    set_age(age : number) : void;
 }

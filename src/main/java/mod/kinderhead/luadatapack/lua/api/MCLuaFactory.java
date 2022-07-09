@@ -112,6 +112,22 @@ public class MCLuaFactory {
             return valueOf(self.getArmor());
         }));
 
+        table.rawset("get_age", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self == null) {
+                return Constants.NIL;
+            }
+            return valueOf(self.age);
+        }));
+
+        table.rawset("set_age", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self != null) {
+                self.age = arg2.checkInteger();
+            }
+            return Constants.NIL;
+        }));
+
         table.rawset("_obj", new LuaUserdata(entity));
         return table;
     }
