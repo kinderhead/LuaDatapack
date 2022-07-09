@@ -72,6 +72,14 @@ public class LuastdLib implements LuaLibrary {
             return ValueFactory.valueOf(id);
         }));
 
+        env.rawset("set_block", LuaUtils.twoArgFunctionFactory((s, arg1, arg2) -> {
+            LuaTable _G = state.getCurrentThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+
+            LuaDatapack.SERVER.getCommandManager().execute(source, "setblock " + String.valueOf(arg1.checkTable().rawget("x").checkInteger()) + " " + String.valueOf(arg1.checkTable().rawget("y").checkInteger()) + " " + String.valueOf(arg1.checkTable().rawget("z").checkInteger()) + " " + arg2.checkString() + " replace");
+            return Constants.NIL;
+        }));
+
         return env;
     }
 }

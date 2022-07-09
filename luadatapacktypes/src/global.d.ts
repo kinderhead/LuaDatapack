@@ -28,3 +28,14 @@ declare function command(cmd : string) : void;
  * @param pos Position
  */
 declare function get_block(pos : Vec3d) : string;
+
+/**
+ * Places a block at a position
+ * 
+ * @remarks
+ * This uses `/setblock replace`, so any valid [block_state](https://minecraft.fandom.com/wiki/Argument_types#block_state) will work
+ * 
+ * @param pos Position
+ * @param id Block
+ */
+declare function set_block(pos : Vec3d, id : string) : void;
