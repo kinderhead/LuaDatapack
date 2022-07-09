@@ -44,6 +44,14 @@ A few utility libraries are included by default
 
 Any help is appreciated. Issues and feature requests can be shared [here](https://github.com/kinderhead/LuaDatapack/issues)
 
+## Planned features
+
+* NBT manipulation
+* More commands
+* More standard libraries
+* Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
+
 ## Links
 
 Source: https://github.com/kinderhead/LuaDatapack
+Modrinth: https://modrinth.com/mod/luadatapack
