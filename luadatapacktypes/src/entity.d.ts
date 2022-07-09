@@ -59,4 +59,13 @@ interface Entity {
      * Gets the entity's name
      */
     get_name() : string;
+
+    /**
+     * Gets the entity's armor level
+     * 
+     * @remarks
+     * Entity must be living
+     * @see {@link is_living_entity}
+     */
+    get_armor() : number | null;
 }

@@ -104,6 +104,14 @@ public class MCLuaFactory {
             return Constants.NIL;
         }));
 
+        table.rawset("get_armor", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self == null) {
+                return Constants.NIL;
+            }
+            return valueOf(self.getArmor());
+        }));
+
         table.rawset("_obj", new LuaUserdata(entity));
         return table;
     }
