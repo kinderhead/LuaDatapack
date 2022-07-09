@@ -35,3 +35,7 @@ run/
 # JS
 
 node_modules/
+
+# other
+
+*.aseprite
