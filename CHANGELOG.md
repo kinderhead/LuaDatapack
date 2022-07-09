@@ -5,6 +5,7 @@
     * `entity.get_age`
     * `entity.set_age`
     * `get_block`
+    * `set_block`
 
 ## 0.1.0-alpha
 
