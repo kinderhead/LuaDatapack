@@ -3,7 +3,9 @@
 
 # LuaDatapack
 
-Allows lua scripts to be ran in Minecraft.
+Allows lua scripts to be ran in Minecraft
+
+Note: LuaDatapack is in alpha, so the api is subject to change
 
 ## Usage
 

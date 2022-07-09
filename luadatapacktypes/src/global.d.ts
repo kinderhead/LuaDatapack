@@ -13,3 +13,9 @@ declare let src : Source;
  * @param tag Selector
  */
 declare function selector(tag : string) : Array<Entity>;
+
+/**
+ * Runs a command using the current source
+ * @param cmd Command
+ */
+declare function command(cmd : string) : void;

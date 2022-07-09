@@ -2,6 +2,7 @@ package mod.kinderhead.luadatapack.lua.api;
 
 import java.util.List;
 
+import org.squiddev.cobalt.Constants;
 import org.squiddev.cobalt.ErrorFactory;
 import org.squiddev.cobalt.LuaError;
 import org.squiddev.cobalt.LuaState;
@@ -13,6 +14,7 @@ import org.squiddev.cobalt.lib.LuaLibrary;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntitySelector;
@@ -51,6 +53,13 @@ public class LuastdLib implements LuaLibrary {
                 table.insert(0, MCLuaFactory.get(entity));
             }
             return table;
+        }));
+
+        env.rawset("command", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
+            LuaTable _G = state.getCurrentThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            LuaDatapack.SERVER.getCommandManager().execute(source, arg1.checkString().strip());
+            return Constants.NIL;
         }));
 
         return env;
