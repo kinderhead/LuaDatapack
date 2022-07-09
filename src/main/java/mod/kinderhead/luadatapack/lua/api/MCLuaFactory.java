@@ -9,6 +9,7 @@ import org.squiddev.cobalt.LuaValue;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec3d;
 
@@ -73,11 +74,41 @@ public class MCLuaFactory {
             return null;
         }));
 
+        // LivingEntity methods
+
+        table.rawset("is_living_entity", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self == null) {
+                return valueOf(false);
+            }
+            return valueOf(true);
+        }));
+
+        table.rawset("get_hp", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self == null) {
+                return Constants.NIL;
+            }
+            return valueOf(self.getHealth());
+        }));
+
+        table.rawset("set_hp", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            LivingEntity self = toLivingEntity(arg1);
+            if (self != null) {
+                self.setHealth((float) arg2.checkDouble());
+            }
+            return Constants.NIL;
+        }));
+
         table.rawset("_obj", new LuaUserdata(entity));
         return table;
     }
 
     public static Entity toEntity(LuaValue val) throws LuaError {
         return ((LuaTable) val).rawget("_obj").checkUserdata(Entity.class);
+    }
+
+    public static LivingEntity toLivingEntity(LuaValue val) throws LuaError {
+        return ((LuaTable) val).rawget("_obj").checkUserdata(LivingEntity.class);
     }
 }

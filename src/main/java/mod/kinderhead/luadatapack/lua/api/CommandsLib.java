@@ -61,7 +61,7 @@ public class CommandsLib implements LuaLibrary {
 
             switch (opcode) {
                 case 0:
-                    LuaDatapack.SERVER.getCommandManager().execute(source, "say " + arg.strvalue().checkString().strip());
+                    LuaDatapack.SERVER.getCommandManager().execute(source, "say " + arg.toString().strip());
                     break;
             
                 default:

@@ -29,4 +29,29 @@ interface Entity {
      * @param air New air
      */
     set_air(air : number) : void;
+    
+    /**
+     * Is the entity living (i.e. has health)
+     */
+    is_living_entity() : boolean;
+
+    /**
+     * Gets the current health of the entity
+     * 
+     * @remarks
+     * Entity must be living
+     * @see {@link is_living_entity}
+     */
+    get_hp() : number | null;
+
+    /**
+     * Sets the health of the entity
+     * 
+     * @remarks
+     * Entity must be living
+     * @see {@link is_living_entity}
+     * 
+     * @param amount Amount
+     */
+    set_hp(amount : number) : void;
 }
