@@ -1,7 +1,7 @@
+![Logo](https://raw.githubusercontent.com/kinderhead/LuaDatapack/master/logo.png)
+
 [![Build](https://img.shields.io/github/workflow/status/kinderhead/LuaDatapack/build)](https://github.com/kinderhead/LuaDatapack/actions)
 [![Releases](https://img.shields.io/github/v/release/kinderhead/LuaDatapack?include_prereleases&sort=semver)](https://github.com/kinderhead/LuaDatapack/releases)
-
-![Logo](logo.png)
 
 # LuaDatapack
 
