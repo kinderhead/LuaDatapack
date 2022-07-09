@@ -74,6 +74,11 @@ public class MCLuaFactory {
             return null;
         }));
 
+        table.rawset("get_name", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            return valueOf(toEntity(arg1).getName().getString());
+        }));
+
+
         // LivingEntity methods
 
         table.rawset("is_living_entity", LuaUtils.oneArgFunctionFactory((state, arg1) -> {

@@ -54,4 +54,9 @@ interface Entity {
      * @param amount Amount
      */
     set_hp(amount : number) : void;
+
+    /**
+     * Gets the entity's name
+     */
+    get_name() : string;
 }
