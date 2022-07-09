@@ -10,7 +10,6 @@ import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.server.command.DataCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec3d;
 
@@ -78,8 +77,6 @@ public class MCLuaFactory {
         table.rawset("get_name", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
             return valueOf(toEntity(arg1).getName().getString());
         }));
-
-        DataCommand
 
         // LivingEntity methods
 
