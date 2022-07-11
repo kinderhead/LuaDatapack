@@ -88,4 +88,14 @@ interface Entity {
      * @param age Age
      */
     set_age(age : number) : void;
+
+    /**
+     * Gets an nbt object from the entity.
+     * 
+     * @remarks
+     * `path` cannot include subpaths, as `/data get` has. This may change eventually.
+     * 
+     * @param path NBT key
+     */
+    get_nbt(path : string) : any;
 }

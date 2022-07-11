@@ -8,6 +8,7 @@ import org.squiddev.cobalt.LuaValue;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
+import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -77,6 +78,12 @@ public class MCLuaFactory {
 
         table.rawset("get_name", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
             return valueOf(toEntity(arg1).getName().getString());
+        }));
+
+        table.rawset("get_nbt", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            Entity self = toEntity(arg1);
+            EntityDataObject data = new EntityDataObject(self);
+            return LuaUtils.getFromNbt(data.getNbt().get(arg2.checkString()));
         }));
 
         // LivingEntity methods

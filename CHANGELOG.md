@@ -1,5 +1,9 @@
 ## 0.3.0-alpha
 
+* NBT!
+* Api features
+    * `entity.get_nbt`
+
 ## 0.2.0-alpha
 
 * Api features
