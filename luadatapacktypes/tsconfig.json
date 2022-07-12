@@ -5,7 +5,9 @@
       "removeComments": true,
       "preserveConstEnums": true,
       "outDir": "build/",
-      "declaration": true
+      "declaration": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts", "build"]

@@ -40,6 +40,19 @@ public class LuaUtils {
         return proxy;
     }
 
+    public interface ThreeArgFunctionType {
+        public LuaValue call(LuaState state, LuaValue arg, LuaValue arg2, LuaValue arg3) throws LuaError, UnwindThrowable;
+    }
+
+    public static ThreeArgFunction threeArgFunctionFactory(ThreeArgFunctionType func) {
+        return new ThreeArgFunction() {
+            @Override
+            public LuaValue call(LuaState state, LuaValue arg1, LuaValue arg2, LuaValue arg3) throws LuaError, UnwindThrowable {
+                return func.call(state, arg1, arg2, arg3);
+            }
+        };
+    }
+
     public interface TwoArgFunctionType {
         public LuaValue call(LuaState state, LuaValue arg, LuaValue arg2) throws LuaError, UnwindThrowable;
     }

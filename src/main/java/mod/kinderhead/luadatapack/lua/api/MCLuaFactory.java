@@ -11,6 +11,7 @@ import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.server.command.DataCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec3d;
 
@@ -85,6 +86,13 @@ public class MCLuaFactory {
             EntityDataObject data = new EntityDataObject(self);
             return LuaUtils.getFromNbt(data.getNbt().get(arg2.checkString()));
         }));
+
+        table.rawset("set_nbt", LuaUtils.threeArgFunctionFactory((state, arg1, arg2, arg3) -> {
+            Entity self = toEntity(arg1);
+            EntityDataObject data = new EntityDataObject(self);
+            return LuaUtils.getFromNbt(data.getNbt().get(arg2.checkString()));
+        }));
+
 
         // LivingEntity methods
 
