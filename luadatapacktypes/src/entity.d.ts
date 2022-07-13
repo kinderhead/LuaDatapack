@@ -90,12 +90,22 @@ interface Entity {
     set_age(age : number) : void;
 
     /**
-     * Gets an nbt object from the entity.
+     * Gets an nbt object from the entity
      * 
      * @remarks
-     * `path` cannot include subpaths, as `/data get` has. This may change eventually.
+     * `path` cannot include subpaths, as `/data get` has. This may change eventually
      * 
      * @param path NBT key
      */
     get_nbt(path : string) : any;
+
+    /**
+     * Merges a table with the entity's nbt data
+     * 
+     * @remarks
+     * This does not work on players, a fix may be coming soon
+     * 
+     * @param obj Nbt object
+     */
+    merge_nbt(obj : any) : void;
 }

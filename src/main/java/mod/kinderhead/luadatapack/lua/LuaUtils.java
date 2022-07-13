@@ -28,6 +28,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.squiddev.cobalt.Constants;
+import org.squiddev.cobalt.ErrorFactory;
 
 public class LuaUtils {
     public static LuaTable readonly(LuaValue t) {
@@ -122,14 +123,14 @@ public class LuaUtils {
     public static NbtElement getFromLua(LuaValue value) throws LuaError {
         if (value.isBoolean()) {
             return NbtByte.of((byte) (value.checkBoolean() ? 1 : 0));
-        } else if (value.isString()) {
-            return NbtString.of(value.checkString());
         } else if (value.isInteger()) {
             return NbtInt.of(value.checkInteger());
         } else if (value.isLong()) {
             return NbtLong.of(value.checkLong());
         } else if (value.isNumber()) {
             return NbtDouble.of(value.checkDouble());
+        } else if (value.isString()) {
+            return NbtString.of(value.checkString());
         } else if (value.isTable()) {
             LuaTable table = value.checkTable();
             if (table.getArrayLength() == 0) {
