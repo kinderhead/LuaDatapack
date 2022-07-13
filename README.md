@@ -60,3 +60,5 @@ Any help is appreciated. Issues and feature requests can be shared [here](https:
 Source: https://github.com/kinderhead/LuaDatapack
 
 Modrinth: https://modrinth.com/mod/luadatapack
+
+Api reference: https://kinderhead.github.io/LuaDatapack
