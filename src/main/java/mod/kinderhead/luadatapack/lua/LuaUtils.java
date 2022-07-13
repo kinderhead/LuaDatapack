@@ -5,6 +5,7 @@ import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.UnwindThrowable;
+import org.squiddev.cobalt.Varargs;
 import org.squiddev.cobalt.function.OneArgFunction;
 import org.squiddev.cobalt.function.ThreeArgFunction;
 import org.squiddev.cobalt.function.TwoArgFunction;
@@ -12,8 +13,13 @@ import org.squiddev.cobalt.function.TwoArgFunction;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import net.minecraft.nbt.AbstractNbtList;
 import net.minecraft.nbt.AbstractNbtNumber;
+import net.minecraft.nbt.NbtByte;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtDouble;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtInt;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtLong;
 import net.minecraft.nbt.NbtString;
 
 import static org.squiddev.cobalt.ValueFactory.valueOf;
@@ -111,5 +117,47 @@ public class LuaUtils {
         }
 
         return Constants.NIL;
+    }
+
+    public static NbtElement getFromLua(LuaValue value) throws LuaError {
+        if (value.isBoolean()) {
+            return NbtByte.of((byte) (value.checkBoolean() ? 1 : 0));
+        } else if (value.isString()) {
+            return NbtString.of(value.checkString());
+        } else if (value.isInteger()) {
+            return NbtInt.of(value.checkInteger());
+        } else if (value.isLong()) {
+            return NbtLong.of(value.checkLong());
+        } else if (value.isNumber()) {
+            return NbtDouble.of(value.checkDouble());
+        } else if (value.isTable()) {
+            LuaTable table = value.checkTable();
+            if (table.getArrayLength() == 0) {
+                // Table
+                NbtCompound dict = new NbtCompound();
+                
+                LuaValue k = Constants.NIL;
+                while (true) {
+                    Varargs n = table.next(k);
+                    if ((k = n.first()).isNil())
+                        break;
+                    LuaValue v = n.arg(2);
+                    dict.put(k.checkString(), getFromLua(v));
+                }
+
+                return dict;
+            } else {
+                // Array
+                NbtList list = new NbtList();
+
+                for (int i = 0; i < table.getArrayLength(); i++) {
+                    list.add(getFromLua(table.rawget(i)));
+                }
+
+                return list;
+            }
+        }
+
+        return NbtInt.of(0);
     }
 }

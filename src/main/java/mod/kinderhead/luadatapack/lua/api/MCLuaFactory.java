@@ -6,11 +6,15 @@ import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaUserdata;
 import org.squiddev.cobalt.LuaValue;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.command.DataCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec3d;
@@ -87,10 +91,17 @@ public class MCLuaFactory {
             return LuaUtils.getFromNbt(data.getNbt().get(arg2.checkString()));
         }));
 
-        table.rawset("set_nbt", LuaUtils.threeArgFunctionFactory((state, arg1, arg2, arg3) -> {
+        table.rawset("merge_nbt", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
             Entity self = toEntity(arg1);
             EntityDataObject data = new EntityDataObject(self);
-            return LuaUtils.getFromNbt(data.getNbt().get(arg2.checkString()));
+            
+            try {
+                data.setNbt(data.getNbt().copyFrom((NbtCompound) LuaUtils.getFromLua(arg2)));
+            } catch (CommandSyntaxException e) {
+                LuaDatapack.LOGGER.error("Error merging nbt", e);
+            }
+            
+            return Constants.NIL;
         }));
 
 

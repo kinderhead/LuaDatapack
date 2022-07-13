@@ -3,6 +3,7 @@
 * NBT!
 * Api features
     * `entity.get_nbt`
+    * `entity.merge_nbt`
 
 ## 0.2.0-alpha
 

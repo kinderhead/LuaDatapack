@@ -44,6 +44,10 @@ A few utility libraries are included by default
 
 Any help is appreciated. Issues and feature requests can be shared [here](https://github.com/kinderhead/LuaDatapack/issues)
 
+### Things to do
+* Optimize lua api
+* Use commands less (except `say`, as it is faster for some reason)
+
 ## Planned features
 
 * NBT manipulation
