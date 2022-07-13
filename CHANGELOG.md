@@ -1,8 +1,12 @@
 ## 0.4.0-beta
 
+* Beta release
 * Script arguments
 * Api features
     * `args`
+* Bug fixes
+    * Fixed errors not displaying in chat
+    * Many minor things
 
 ## 0.3.1-alpha
 
