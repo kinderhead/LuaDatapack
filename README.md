@@ -7,7 +7,8 @@
 
 Allows lua scripts to be ran in Minecraft
 
-Note: LuaDatapack is in alpha, so the api is subject to change
+~~Note: LuaDatapack is in alpha, so the api is subject to change~~
+LuaDatapack is now in beta!
 
 ## Usage
 
