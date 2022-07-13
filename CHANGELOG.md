@@ -1,3 +1,9 @@
+## 0.4.0-beta
+
+* Script arguments
+* Api features
+    * `args`
+
 ## 0.3.1-alpha
 
 * Command autocomplete

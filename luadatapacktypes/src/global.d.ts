@@ -4,6 +4,11 @@
 /// <reference path='entity.d.ts'/>
 
 /**
+ * Arguments passed by `/lua`
+ */
+declare let args : string[];
+
+/**
  * Data about the executor. Basically equivalent as `@s`
  */
 declare let src : Source;
@@ -12,7 +17,7 @@ declare let src : Source;
  * Get entites from a target selector
  * @param tag Selector
  */
-declare function selector(tag : string) : Array<Entity>;
+declare function selector(tag : string) : Entity[];
 
 /**
  * Runs a command using the current source
@@ -39,3 +44,10 @@ declare function get_block(pos : Vec3d) : string;
  * @param id Block
  */
 declare function set_block(pos : Vec3d, id : string) : void;
+
+/**
+ * Runs the script as if calling `/lua`
+ * @param script Namespaced id
+ * @param args Args
+ */
+declare function run(script : string, ...args : string[]) : void;

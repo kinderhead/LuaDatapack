@@ -9,6 +9,7 @@ import org.squiddev.cobalt.Varargs;
 import org.squiddev.cobalt.function.OneArgFunction;
 import org.squiddev.cobalt.function.ThreeArgFunction;
 import org.squiddev.cobalt.function.TwoArgFunction;
+import org.squiddev.cobalt.function.VarArgFunction;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import net.minecraft.nbt.AbstractNbtList;
@@ -81,6 +82,19 @@ public class LuaUtils {
             @Override
             public LuaValue call(LuaState state, LuaValue arg1) throws LuaError, UnwindThrowable {
                 return func.call(state, arg1);
+            }
+        };
+    }
+
+    public interface VarArgFunctionType {
+        public LuaValue call(LuaState state, Varargs args) throws LuaError, UnwindThrowable;
+    }
+
+    public static VarArgFunction varArgFunctionFactory(VarArgFunctionType func) {
+        return new VarArgFunction() {
+            @Override
+            public LuaValue invoke(LuaState state, Varargs args) throws LuaError, UnwindThrowable {
+                return func.call(state, args);
             }
         };
     }

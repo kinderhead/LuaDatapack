@@ -1,6 +1,6 @@
 {
   "name": "luadatapacktypes",
-  "version": "0.3.1-alpha",
+  "version": "0.4.0-beta",
   "description": "Types for the lua api",
   "scripts": {
     "doc": "npx typedoc --out ../docs --entryPointStrategy expand ./src --githubPages true --watch"

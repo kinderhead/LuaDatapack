@@ -24,9 +24,11 @@ Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.l
 
 ### `/lua`
 
-Usage: `/lua <name>`
+Usage: `/lua <name> [<args>]`
 
 Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar`
+
+Arguments can be accessed via an array named `args`
 
 ## Api
 
@@ -54,7 +56,7 @@ Any help is appreciated. Issues and feature requests can be shared [here](https:
 * More commands
 * More standard libraries
 * Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
-* Others can be found [here](https://github.com/kinderhead/LuaDatapack/issues?q=is%3Aopen%20is%3Aissue%20project%3Akinderhead%2F2)
+* Others can be found [here](https://github.com/users/kinderhead/projects/2/views/1)
 
 ## Links
 

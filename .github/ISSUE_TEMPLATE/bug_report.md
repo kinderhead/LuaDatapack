@@ -7,6 +7,9 @@ assignees: kinderhead
 
 ---
 
+**Version**
+1.2.3
+
 **Problematic script or function**
 ```
 say({foo="bar"})

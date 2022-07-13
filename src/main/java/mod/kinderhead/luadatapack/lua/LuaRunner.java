@@ -23,15 +23,15 @@ import mod.kinderhead.luadatapack.lua.api.CommandsLib;
 import mod.kinderhead.luadatapack.lua.api.LuastdLib;
 
 public class LuaRunner {
-    public static boolean Run(String code) {
+    public static boolean Run(String code) throws LuaError {
         return Run(code, "main", new LuaTable());
     }
 
-    public static boolean Run(String code, String name) {
+    public static boolean Run(String code, String name) throws LuaError {
         return Run(code, name, new LuaTable());
     }
 
-    public static boolean Run(String code, String name, LuaTable env) {
+    public static boolean Run(String code, String name, LuaTable env) throws LuaError {
         LuaState state = LuaState.builder().build();
 
         LuaTable _G = env;
@@ -56,12 +56,15 @@ public class LuaRunner {
         try {
             LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
             return true;
-        } catch (LuaError | IOException | CompileException | UnwindThrowable e) {
+        } catch (LuaError e) {
+            LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
+            throw e;
+        } catch (UnwindThrowable | IOException | CompileException e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
             return false;
         } catch (Exception e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
             throw e;
-        }
+        } 
     }
 }

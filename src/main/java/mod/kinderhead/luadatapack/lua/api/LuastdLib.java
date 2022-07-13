@@ -1,5 +1,6 @@
 package mod.kinderhead.luadatapack.lua.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.squiddev.cobalt.Constants;
@@ -14,6 +15,7 @@ import org.squiddev.cobalt.lib.LuaLibrary;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import mod.kinderhead.luadatapack.LuaCommand;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
@@ -77,6 +79,31 @@ public class LuastdLib implements LuaLibrary {
             ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
 
             LuaDatapack.SERVER.getCommandManager().execute(source, "setblock " + String.valueOf(arg1.checkTable().rawget("x").checkInteger()) + " " + String.valueOf(arg1.checkTable().rawget("y").checkInteger()) + " " + String.valueOf(arg1.checkTable().rawget("z").checkInteger()) + " " + arg2.checkString() + " replace");
+            return Constants.NIL;
+        }));
+
+        env.rawset("run", LuaUtils.varArgFunctionFactory((s, args) -> {
+            LuaTable _G = state.getCurrentThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+
+            String code = Scripts.get(new Identifier(args.first().checkString()));
+
+            if (code == null) {
+                throw new LuaError(args.first().checkString() + " is not a valid script");
+            }
+
+            ArrayList<String> list = new ArrayList<>();
+
+            for (int i = 1; i < args.count() + 1; i++) {
+                if (i == 1) {
+                    continue;
+                }
+
+                list.add(args.arg(i).checkString());
+            }
+
+            LuaCommand.exec(code, args.first().checkString(), source, list.toArray(new String[list.size()]));
+
             return Constants.NIL;
         }));
 
