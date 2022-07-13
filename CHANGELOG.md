@@ -1,3 +1,8 @@
+## 0.3.1-alpha
+
+* Command autocomplete
+* Player nbt editing
+
 ## 0.3.0-alpha
 
 * NBT!

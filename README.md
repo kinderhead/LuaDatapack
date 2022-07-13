@@ -54,7 +54,7 @@ Any help is appreciated. Issues and feature requests can be shared [here](https:
 * More commands
 * More standard libraries
 * Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
-* Others can be found [here](https://github.com/kinderhead/LuaDatapack/issues?q=is%3Aopen+is%3Aissue+milestone%3A1.0.0)
+* Others can be found [here](https://github.com/kinderhead/LuaDatapack/issues?q=is%3Aopen%20is%3Aissue%20project%3Akinderhead%2F2)
 
 ## Links
 
