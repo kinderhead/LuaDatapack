@@ -1,6 +1,6 @@
 ## 0.4.1-beta
 
-* Quick fix to include icon in mod for compatability with mod menus
+* Quick fix to include icon in mod for compatibility with mod menus
     * Also fixed a couple of config settings
 
 ## 0.4.0-beta
