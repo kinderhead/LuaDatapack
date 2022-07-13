@@ -11,6 +11,8 @@ import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.math.Vec3d;
@@ -101,6 +103,18 @@ public class MCLuaFactory {
             return Constants.NIL;
         }));
 
+        table.rawset("get_inventory", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            Entity self = toEntity(arg1);
+            
+            if (self instanceof Inventory) {
+                return get((Inventory) self);
+            }
+            else if (self instanceof PlayerEntity) {
+                return get(((PlayerEntity)self).getInventory());
+            }
+
+            return Constants.NIL;
+        }));
 
         // LivingEntity methods
 
@@ -157,10 +171,23 @@ public class MCLuaFactory {
     }
 
     public static Entity toEntity(LuaValue val) throws LuaError {
-        return ((LuaTable) val).rawget("_obj").checkUserdata(Entity.class);
+        return val.checkTable().rawget("_obj").checkUserdata(Entity.class);
     }
 
     public static LivingEntity toLivingEntity(LuaValue val) throws LuaError {
-        return ((LuaTable) val).rawget("_obj").checkUserdata(LivingEntity.class);
+        return val.checkTable().rawget("_obj").checkUserdata(LivingEntity.class);
+    }
+
+    public static LuaValue get(Inventory inventory) {
+        LuaTable table = new LuaTable();
+
+        table.rawset("size", valueOf(inventory.size()));
+
+        table.rawset("_obj", new LuaUserdata(inventory));
+        return table;
+    }
+
+    public static Inventory toInventory(LuaValue val) throws LuaError {
+        return val.checkTable().rawget("_obj").checkUserdata(Inventory.class);
     }
 }

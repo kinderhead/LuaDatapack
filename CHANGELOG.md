@@ -1,3 +1,15 @@
+## 0.5.0-beta
+
+* Api features
+    * Nbt types for tstl
+        * `NbtElement`
+        * `NbtCompound`
+        * `NbtList`
+    * Inventory api
+    * `entity.get_inventory`
+    * `Inventory`
+    * `ItemStack`
+
 ## 0.4.1-beta
 
 * Quick fix to include icon in mod for compatibility with mod menus

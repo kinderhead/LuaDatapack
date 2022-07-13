@@ -1,4 +1,6 @@
 /// <reference path='vec3d.d.ts'/>
+/// <reference path='inventory.d.ts'/>
+/// <reference path='nbt.d.ts'/>
 
 /**
  * Wrapper for Minecraft's Entity class
@@ -97,12 +99,17 @@ interface Entity {
      * 
      * @param path NBT key
      */
-    get_nbt(path : string) : any;
+    get_nbt(path : string) : NbtElement;
 
     /**
      * Merges a table with the entity's nbt data
      * 
      * @param obj Nbt object
      */
-    merge_nbt(obj : any) : void;
+    merge_nbt(obj : NbtCompound) : void;
+
+    /**
+     * Get's the entity's inventory
+     */
+    get_inventory() : Inventory;
 }
