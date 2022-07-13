@@ -6,8 +6,6 @@ import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaUserdata;
 import org.squiddev.cobalt.LuaValue;
 
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;

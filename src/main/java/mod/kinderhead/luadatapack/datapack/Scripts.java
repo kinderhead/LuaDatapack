@@ -1,5 +1,6 @@
 package mod.kinderhead.luadatapack.datapack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,5 +27,25 @@ public class Scripts {
 
     public static void clear() {
         files.clear();
+    }
+
+    public static Iterable<Identifier> idSet() {
+        return files.keySet();
+    }
+
+    public static Iterable<Identifier> idSet(boolean excludeStd) {
+        if (!excludeStd) {
+            return idSet();
+        }
+
+        ArrayList<Identifier> list = new ArrayList<>();
+
+        for (var i : files.keySet()) {
+            if (!i.getNamespace().equals("std")) {
+                list.add(i);
+            } 
+        }
+
+        return list;
     }
 }

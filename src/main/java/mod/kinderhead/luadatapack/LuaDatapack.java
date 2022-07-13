@@ -4,11 +4,14 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.Text;
+
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +37,11 @@ public class LuaDatapack implements ModInitializer {
 				CommandManager.literal("lua")
 				.requires(source -> source.hasPermissionLevel(2))
 				.then(CommandManager.argument("name", IdentifierArgumentType.identifier())
+					.suggests((ctx, builder) -> {
+						CommandSource.forEachMatching(Scripts.idSet(true), builder.getRemaining().toLowerCase(Locale.ROOT), id -> id, id -> builder.suggest(id.toString()));
+
+						return builder.buildFuture();
+					})
 					.executes(ctx -> {
 						var id = IdentifierArgumentType.getIdentifier(ctx, "name");
 
