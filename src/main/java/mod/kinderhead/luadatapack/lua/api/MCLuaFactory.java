@@ -19,6 +19,8 @@ import net.minecraft.util.math.Vec3d;
 
 import static org.squiddev.cobalt.ValueFactory.valueOf;
 
+import java.util.UUID;
+
 public class MCLuaFactory {
     public static LuaValue get(ServerCommandSource source) {
         LuaTable table = new LuaTable();
@@ -93,11 +95,10 @@ public class MCLuaFactory {
             Entity self = toEntity(arg1);
             EntityDataObject data = new EntityDataObject(self);
             
-            try {
-                data.setNbt(data.getNbt().copyFrom((NbtCompound) LuaUtils.getFromLua(arg2)));
-            } catch (CommandSyntaxException e) {
-                LuaDatapack.LOGGER.error("Error merging nbt", e);
-            }
+            // EntityDataObject does it this way
+            UUID id = self.getUuid();
+            self.readNbt(data.getNbt().copyFrom((NbtCompound) LuaUtils.getFromLua(arg2)));
+            self.setUuid(id);
             
             return Constants.NIL;
         }));

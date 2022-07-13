@@ -4,11 +4,9 @@
   "package": "mod.kinderhead.luadatapack.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    
+
   ],
-  "client": [
-    
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
