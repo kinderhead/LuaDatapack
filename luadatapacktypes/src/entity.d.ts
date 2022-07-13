@@ -102,9 +102,6 @@ interface Entity {
     /**
      * Merges a table with the entity's nbt data
      * 
-     * @remarks
-     * This does not work on players, a fix may be coming soon
-     * 
      * @param obj Nbt object
      */
     merge_nbt(obj : any) : void;
