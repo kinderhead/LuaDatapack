@@ -51,6 +51,7 @@ Any help is appreciated. Issues and feature requests can be shared [here](https:
 ## Planned features
 
 * NBT manipulation
+    * Player nbt editing
 * More commands
 * More standard libraries
 * Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
