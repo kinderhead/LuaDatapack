@@ -10,11 +10,12 @@
   ],
   "contact": {
     "homepage": "https://github.com/kinderhead/LuaDatapack",
-    "sources": "https://github.com/kinderhead/LuaDatapack"
+    "sources": "https://github.com/kinderhead/LuaDatapack",
+    "issues": "https://github.com/kinderhead/LuaDatapack/issues"
   },
 
   "license": "MIT",
-  "icon": "",
+  "icon": "assets/logo.png",
 
   "environment": "*",
   "entrypoints": {
