@@ -28,7 +28,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.squiddev.cobalt.Constants;
-import org.squiddev.cobalt.ErrorFactory;
 
 public class LuaUtils {
     public static LuaTable readonly(LuaValue t) {
