@@ -7,8 +7,10 @@
         * `NbtList`
     * Inventory api
     * `entity.inventory`
+    * `get_blockentity`
     * `Inventory`
     * `ItemStack`
+    * `BlockEntity`
 
 ## 0.4.1-beta
 

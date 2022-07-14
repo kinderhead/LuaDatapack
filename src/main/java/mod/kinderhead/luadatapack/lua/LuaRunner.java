@@ -58,13 +58,13 @@ public class LuaRunner {
             return true;
         } catch (LuaError e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
-            throw e;
+            return false;
         } catch (UnwindThrowable | IOException | CompileException e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
             return false;
         } catch (Exception e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
-            throw e;
+            return false;
         } 
     }
 }

@@ -2,4 +2,4 @@
 
 let json : Json = require("std:json");
 
-src.entity.inventory.set(0, {id:"minecraft:dirt", count:1, nbt:{test:"Hello"}});
+get_blockentity({x:0, y:0, z:0}).inventory.set(2, {id: "dirt", count: 64, nbt:{}});

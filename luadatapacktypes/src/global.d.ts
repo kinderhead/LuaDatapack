@@ -2,6 +2,7 @@
 
 /// <reference path='source.d.ts'/>
 /// <reference path='entity.d.ts'/>
+/// <reference path='blockentity.d.ts'/>
 
 /**
  * Arguments passed by `/lua`
@@ -39,6 +40,12 @@ declare function command(cmd : string) : void;
  * @param pos Position
  */
 declare function get_block(pos : Vec3d) : string;
+
+/**
+ * Get block entity at position, null if not a block entity
+ * @param pos Position
+ */
+declare function get_blockentity(pos : Vec3d) : BlockEntity;
 
 /**
  * Places a block at a position

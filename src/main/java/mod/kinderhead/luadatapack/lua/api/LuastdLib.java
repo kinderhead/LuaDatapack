@@ -19,10 +19,15 @@ import mod.kinderhead.luadatapack.LuaCommand;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.EntitySelectorReader;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.command.SetBlockCommand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -72,6 +77,27 @@ public class LuastdLib implements LuaLibrary {
 
             String id = Registry.BLOCK.getId(source.getWorld().getBlockState(new BlockPos(MCLuaFactory.toVec(arg1))).getBlock()).toString();
             return ValueFactory.valueOf(id);
+        }));
+
+        env.rawset("get_blockentity", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
+            LuaTable _G = state.getCurrentThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            BlockEntity block = source.getWorld().getBlockEntity(new BlockPos(MCLuaFactory.toVec(arg1)));
+            LuaTable table = new LuaTable();
+
+            if (block == null) {
+                return Constants.NIL;
+            }
+
+            table.rawset("id", ValueFactory.valueOf(BlockEntityType.getId(block.getType()).toString()));
+            
+            if (block instanceof Inventory) {
+                table.rawset("inventory", MCLuaFactory.get((Inventory) block));
+            } else {
+                table.rawset("inventory", Constants.NIL);
+            }
+
+            return table;
         }));
 
         env.rawset("set_block", LuaUtils.twoArgFunctionFactory((s, arg1, arg2) -> {
