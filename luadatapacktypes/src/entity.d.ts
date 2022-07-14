@@ -12,6 +12,11 @@ interface Entity {
     readonly inventory : Inventory;
 
     /**
+     * Player's ender chest inventory, or null if entity is not a player
+     */
+    readonly echest : Inventory;
+
+    /**
      * Get position of an entity
      */
     get_pos() : Vec3d;

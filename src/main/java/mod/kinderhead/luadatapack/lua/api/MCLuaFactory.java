@@ -107,13 +107,16 @@ public class MCLuaFactory {
         }));
 
         LuaValue inv = Constants.NIL;
+        LuaValue echest = Constants.NIL;
         if (entity instanceof Inventory) {
             inv = get((Inventory) entity);
+            echest = get(((PlayerEntity) entity).getEnderChestInventory());
         }
         else if (entity instanceof PlayerEntity) {
             inv = get(((PlayerEntity) entity).getInventory());
         }
         table.rawset("inventory", inv);
+        table.rawset("echest", echest);
 
         // LivingEntity methods
 
