@@ -13,9 +13,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 
 import static org.squiddev.cobalt.ValueFactory.valueOf;
 
@@ -103,18 +106,14 @@ public class MCLuaFactory {
             return Constants.NIL;
         }));
 
-        table.rawset("get_inventory", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
-            Entity self = toEntity(arg1);
-            
-            if (self instanceof Inventory) {
-                return get((Inventory) self);
-            }
-            else if (self instanceof PlayerEntity) {
-                return get(((PlayerEntity)self).getInventory());
-            }
-
-            return Constants.NIL;
-        }));
+        LuaValue inv = Constants.NIL;
+        if (entity instanceof Inventory) {
+            inv = get((Inventory) entity);
+        }
+        else if (entity instanceof PlayerEntity) {
+            inv = get(((PlayerEntity) entity).getInventory());
+        }
+        table.rawset("inventory", inv);
 
         // LivingEntity methods
 
@@ -183,11 +182,38 @@ public class MCLuaFactory {
 
         table.rawset("size", valueOf(inventory.size()));
 
+        table.rawset("get", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            Inventory self = toInventory(arg1);
+            return get(self.getStack(arg2.checkInteger()));
+        }));
+
+        table.rawset("set", LuaUtils.threeArgFunctionFactory((state, arg1, arg2, arg3) -> {
+            Inventory self = toInventory(arg1);
+            self.setStack(arg2.checkInteger(), toItemStack(arg3.checkTable()));
+            return Constants.NIL;
+        }));
+
         table.rawset("_obj", new LuaUserdata(inventory));
         return table;
     }
 
     public static Inventory toInventory(LuaValue val) throws LuaError {
         return val.checkTable().rawget("_obj").checkUserdata(Inventory.class);
+    }
+
+    public static LuaValue get(ItemStack stack) {
+        LuaTable table = new LuaTable();
+
+        table.rawset("count", valueOf(stack.getCount()));
+        table.rawset("id", valueOf(Registry.ITEM.getId(stack.getItem()).toString()));
+        table.rawset("nbt", LuaUtils.getFromNbt(stack.getNbt()));
+
+        return table;
+    }
+
+    public static ItemStack toItemStack(LuaTable val) throws LuaError {
+        ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(val.rawget("id").checkString())), val.rawget("count").checkInteger());
+        stack.setNbt((NbtCompound) LuaUtils.getFromLua(val.rawget("nbt")));
+        return stack;
     }
 }

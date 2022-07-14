@@ -7,6 +7,11 @@
  */
 interface Entity {
     /**
+     * Entity's inventory, or null if none found
+     */
+    readonly inventory : Inventory;
+
+    /**
      * Get position of an entity
      */
     get_pos() : Vec3d;
@@ -107,9 +112,4 @@ interface Entity {
      * @param obj Nbt object
      */
     merge_nbt(obj : NbtCompound) : void;
-
-    /**
-     * Get's the entity's inventory
-     */
-    get_inventory() : Inventory;
 }

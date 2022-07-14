@@ -14,6 +14,12 @@ declare let args : string[];
 declare let src : Source;
 
 /**
+ * Imports a module from a datapack using a namespaced id
+ * @param mod Module name
+ */
+declare function require(mod : string) : any;
+
+/**
  * Get entites from a target selector
  * @param tag Selector
  */

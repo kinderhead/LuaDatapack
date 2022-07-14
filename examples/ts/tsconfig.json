@@ -5,11 +5,12 @@
 		"moduleResolution": "node",
 		"types": [],
 		"strict": true,
-		"outDir": "build"
+		"outDir": "../../run/saves/test/datapacks/test/data/test/lua"
 	},
 	"tstl": {
 		"luaTarget": "5.1",
-		"luaLibImport": "inline"
+		"luaLibImport": "inline",
+		"noResolvePaths": ["std:json"]
 	},
 	"include": [
 		"src/**/*",

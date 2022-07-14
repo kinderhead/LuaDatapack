@@ -6,7 +6,7 @@
         * `NbtCompound`
         * `NbtList`
     * Inventory api
-    * `entity.get_inventory`
+    * `entity.inventory`
     * `Inventory`
     * `ItemStack`
 
