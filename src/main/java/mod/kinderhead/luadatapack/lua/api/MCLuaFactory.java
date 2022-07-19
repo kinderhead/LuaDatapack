@@ -106,6 +106,26 @@ public class MCLuaFactory {
             return Constants.NIL;
         }));
 
+        table.rawset("add_effect", LuaUtils.varArgFunctionFactory((state, args) -> {
+            Entity self = toEntity(args.first());
+            LuaTable _G = state.getMainThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            
+            LuaDatapack.SERVER.getCommandManager().execute(source, "effect give " + self.getUuidAsString() + " " + args.arg(2).checkString() + " " + String.valueOf(args.arg(3).checkInteger()) + " " + String.valueOf(args.arg(4).checkInteger()) + " " + String.valueOf(args.arg(5).checkBoolean()));
+
+            return Constants.NIL;
+        }));
+
+        table.rawset("clear_effects", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            Entity self = toEntity(arg1);
+            LuaTable _G = state.getMainThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            
+            LuaDatapack.SERVER.getCommandManager().execute(source, "effect clear " + self.getUuidAsString());
+
+            return Constants.NIL;
+        }));
+
         LuaValue inv = Constants.NIL;
         LuaValue echest = Constants.NIL;
         if (entity instanceof Inventory) {

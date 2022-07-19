@@ -97,7 +97,6 @@ public class CommandsLib implements LuaLibrary {
                         LuaDatapack.SERVER.getCommandManager().execute(source, "tp " + entity.getUuidAsString() + " " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
                     }
                     return Constants.NIL;
-            
                 default:
                     break;
             }
