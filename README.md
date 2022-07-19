@@ -41,6 +41,9 @@ A few utility libraries are included by default
 |Library|Path|
 |---|---|
 |[json.lua](https://github.com/rxi/json.lua)|`std:json`|
+|[class.lua](https://github.com/jonstoler/class.lua)|`std:class`|
+
+Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like this one, it can be replaced in the future
 
 ## Contributing
 
@@ -52,9 +55,7 @@ Any help is appreciated. Issues and feature requests can be shared [here](https:
 
 ## Planned features
 
-* NBT manipulation
 * More commands
-* More standard libraries
 * Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
 * Others can be found [here](https://github.com/users/kinderhead/projects/2/views/1)
 
