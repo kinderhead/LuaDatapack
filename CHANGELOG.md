@@ -1,9 +1,11 @@
 ## 0.6.0-beta
 
-* New standard library: `class.lua`. If you prefer a different OOP library, you can add one to a datapack
+* New standard library: `class.lua`. If you prefer a different OOP library, you can add one to the datapack
 * Api features
     * `entity.add_effect`
     * `entity.clear_effects`
+* Bug fixes
+    * Certain api calls displayed output in the chat. This is no longer the case
 
 ## 0.5.0-beta
 

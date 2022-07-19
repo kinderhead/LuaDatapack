@@ -62,7 +62,7 @@ public class LuaCommand {
 
     public static int exec(String code, String name, ServerCommandSource source, String[] args) throws LuaError {
         LuaTable env = new LuaTable();
-        env.rawset("src", MCLuaFactory.get(source));
+        env.rawset("src", MCLuaFactory.get(source.withSilent()));
 
         LuaTable a = new LuaTable();
         for (String string : args) {
