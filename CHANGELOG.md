@@ -1,6 +1,7 @@
 ## 0.6.0-beta
 
 * New standard library: `class.lua`. If you prefer a different OOP library, you can add one to the datapack
+* Top level return with `run()`
 * Api features
     * `entity.add_effect`
     * `entity.clear_effects`
