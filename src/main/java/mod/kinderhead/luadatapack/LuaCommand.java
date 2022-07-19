@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.squiddev.cobalt.LuaError;
 import org.squiddev.cobalt.LuaTable;
+import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.ValueFactory;
 
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,6 +13,7 @@ import com.mojang.brigadier.context.CommandContext;
 import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.LuaRunner;
 import mod.kinderhead.luadatapack.lua.api.MCLuaFactory;
+import mod.kinderhead.util.Out;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -49,7 +51,7 @@ public class LuaCommand {
         }
 
         try {
-            if (exec(code, id.toString(), ctx.getSource(), args) == -1) {
+            if (exec(code, id.toString(), ctx.getSource(), args, new Out<LuaValue>()) == -1) {
                 ctx.getSource().sendFeedback(Text.translatable("text.luadatapack.lua_error", id.toString()), false);
                 return -1;
             }
@@ -60,7 +62,7 @@ public class LuaCommand {
         return 1;
     }
 
-    public static int exec(String code, String name, ServerCommandSource source, String[] args) throws LuaError {
+    public static int exec(String code, String name, ServerCommandSource source, String[] args, Out<LuaValue> ret) throws LuaError {
         LuaTable env = new LuaTable();
         env.rawset("src", MCLuaFactory.get(source.withSilent()));
 
@@ -70,7 +72,7 @@ public class LuaCommand {
         }
         env.rawset("args", a);
 
-        if (LuaRunner.Run(code, name, env)) {
+        if (LuaRunner.Run(code, name, env, ret)) {
             return 1;
         }
 

@@ -19,6 +19,7 @@ import mod.kinderhead.luadatapack.LuaCommand;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
+import mod.kinderhead.util.Out;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.command.EntitySelector;
@@ -126,9 +127,10 @@ public class LuastdLib implements LuaLibrary {
                 list.add(args.arg(i).checkString());
             }
 
-            LuaCommand.exec(code, args.first().checkString(), source, list.toArray(new String[list.size()]));
+            var ret = new Out<LuaValue>();
+            LuaCommand.exec(code, args.first().checkString(), source, list.toArray(new String[list.size()]), ret);
 
-            return Constants.NIL;
+            return ret.Get();
         }));
 
         return env;

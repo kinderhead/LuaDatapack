@@ -8,6 +8,7 @@ import org.squiddev.cobalt.Constants;
 import org.squiddev.cobalt.LuaError;
 import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
+import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.UnwindThrowable;
 import org.squiddev.cobalt.compiler.CompileException;
 import org.squiddev.cobalt.compiler.LoadState;
@@ -21,6 +22,7 @@ import org.squiddev.cobalt.lib.Utf8Lib;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.api.CommandsLib;
 import mod.kinderhead.luadatapack.lua.api.LuastdLib;
+import mod.kinderhead.util.Out;
 
 public class LuaRunner {
     public static boolean Run(String code) throws LuaError {
@@ -32,6 +34,10 @@ public class LuaRunner {
     }
 
     public static boolean Run(String code, String name, LuaTable env) throws LuaError {
+        return Run(code, name, env, new Out<LuaValue>());
+    }
+
+    public static boolean Run(String code, String name, LuaTable env, Out<LuaValue> ret) throws LuaError {
         LuaState state = LuaState.builder().build();
 
         LuaTable _G = env;
@@ -54,7 +60,7 @@ public class LuaRunner {
 
         LuaDatapack.LOGGER.info("Running lua script: " + name);
         try {
-            LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state);
+            ret.Set(LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state));
             return true;
         } catch (LuaError e) {
             LuaDatapack.LOGGER.error("Could not execute script \"" + name + "\"", e);
