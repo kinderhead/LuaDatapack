@@ -1,3 +1,5 @@
+## 0.7.0-beta
+
 ## 0.6.0-beta
 
 * New standard library: `class.lua`. If you prefer a different OOP library, you can add one to the datapack
