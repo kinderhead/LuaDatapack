@@ -14,7 +14,6 @@ import org.squiddev.cobalt.compiler.CompileException;
 import org.squiddev.cobalt.compiler.LoadState;
 import org.squiddev.cobalt.lib.BaseLib;
 import org.squiddev.cobalt.lib.TableLib;
-import org.squiddev.cobalt.lib.Utf8Lib;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.api.CommandsLib;
@@ -42,7 +41,6 @@ public class LuaRunner {
 
         _G.load(state, new BaseLib());
         _G.load(state, new TableLib());
-        _G.load(state, new Utf8Lib());
 
         _G.rawset("print", Constants.NIL);
         _G.rawset("dofile", Constants.NIL);

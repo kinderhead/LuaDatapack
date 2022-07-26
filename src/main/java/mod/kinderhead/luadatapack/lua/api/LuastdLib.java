@@ -14,6 +14,7 @@ import org.squiddev.cobalt.lib.Bit32Lib;
 import org.squiddev.cobalt.lib.LuaLibrary;
 import org.squiddev.cobalt.lib.MathLib;
 import org.squiddev.cobalt.lib.StringLib;
+import org.squiddev.cobalt.lib.Utf8Lib;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -51,6 +52,10 @@ public class LuastdLib implements LuaLibrary {
 
                 case "std:bit32":
                     state.getMainThread().getfenv().load(state, new Bit32Lib());
+                    break;
+
+                case "std:utf8":
+                    state.getMainThread().getfenv().load(state, new Utf8Lib());
                     break;
             
                 default:

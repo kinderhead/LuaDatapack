@@ -45,6 +45,7 @@ A few utility libraries are included by default
 |Standard lua library|`std:math`|
 |Standard lua library|`std:string`|
 |Standard lua library|`std:bit32`|
+|Standard lua library|`std:utf8`|
 
 Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like this one, it can be replaced in the future
 

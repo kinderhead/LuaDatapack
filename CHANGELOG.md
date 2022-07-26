@@ -4,6 +4,7 @@
     * `std:math`
     * `std:string`
     * `std:bit32`
+    * `std:utf8`
 
 ## 0.6.0-beta
 
