@@ -13,9 +13,6 @@ import org.squiddev.cobalt.UnwindThrowable;
 import org.squiddev.cobalt.compiler.CompileException;
 import org.squiddev.cobalt.compiler.LoadState;
 import org.squiddev.cobalt.lib.BaseLib;
-import org.squiddev.cobalt.lib.Bit32Lib;
-import org.squiddev.cobalt.lib.MathLib;
-import org.squiddev.cobalt.lib.StringLib;
 import org.squiddev.cobalt.lib.TableLib;
 import org.squiddev.cobalt.lib.Utf8Lib;
 
@@ -45,9 +42,6 @@ public class LuaRunner {
 
         _G.load(state, new BaseLib());
         _G.load(state, new TableLib());
-        _G.load(state, new StringLib());
-        _G.load(state, new MathLib());
-        _G.load(state, new Bit32Lib());
         _G.load(state, new Utf8Lib());
 
         _G.rawset("print", Constants.NIL);

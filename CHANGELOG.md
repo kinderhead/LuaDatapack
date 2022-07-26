@@ -1,5 +1,10 @@
 ## 0.7.0-beta
 
+* Separated a couple of standard lua libraries. They are no longer instantiated every time `/lua` is ran, improving performance
+    * `std:math`
+    * `std:string`
+    * `std:bit32`
+
 ## 0.6.0-beta
 
 * New standard library: `class.lua`. If you prefer a different OOP library, you can add one to the datapack

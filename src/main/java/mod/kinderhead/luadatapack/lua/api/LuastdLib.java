@@ -10,7 +10,10 @@ import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.ValueFactory;
+import org.squiddev.cobalt.lib.Bit32Lib;
 import org.squiddev.cobalt.lib.LuaLibrary;
+import org.squiddev.cobalt.lib.MathLib;
+import org.squiddev.cobalt.lib.StringLib;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -36,6 +39,23 @@ public class LuastdLib implements LuaLibrary {
     public LuaValue add(LuaState state, LuaTable env) {
         env.rawset("require", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
             String name = arg1.checkString();
+
+            switch (name) {
+                case "std:math":
+                    state.getMainThread().getfenv().load(state, new MathLib());
+                    break;
+                
+                case "std:string":
+                    state.getMainThread().getfenv().load(state, new StringLib());
+                    break;
+
+                case "std:bit32":
+                    state.getMainThread().getfenv().load(state, new Bit32Lib());
+                    break;
+            
+                default:
+                    break;
+            }
 
             String data = Scripts.get(new Identifier(name));
             if (data == null) {

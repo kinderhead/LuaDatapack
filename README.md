@@ -42,6 +42,9 @@ A few utility libraries are included by default
 |---|---|
 |[json.lua](https://github.com/rxi/json.lua)|`std:json`|
 |[class.lua](https://github.com/jonstoler/class.lua)|`std:class`|
+|Standard lua library|`std:math`|
+|Standard lua library|`std:string`|
+|Standard lua library|`std:bit32`|
 
 Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like this one, it can be replaced in the future
 
