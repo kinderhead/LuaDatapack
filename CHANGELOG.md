@@ -1,5 +1,6 @@
 ## 0.7.0-beta
 
+* Not much, but there has not been a release in a while
 * Separated a couple of standard lua libraries. They are no longer instantiated every time `/lua` is ran, improving performance
     * `std:math`
     * `std:string`
