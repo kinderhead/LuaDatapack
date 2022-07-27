@@ -135,3 +135,10 @@ interface Entity {
      */
     clear_effects() : void;
 }
+
+interface _EntityCtor {
+    new(id : string, pos : Vec3d) : Entity;
+    new(id : string, pos : Vec3d, nbt : NbtCompound) : Entity;
+}
+
+declare var Entity : _EntityCtor;

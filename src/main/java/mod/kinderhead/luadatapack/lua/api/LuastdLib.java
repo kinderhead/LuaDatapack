@@ -29,10 +29,15 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.EntitySelectorReader;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
 public class LuastdLib implements LuaLibrary {
@@ -157,6 +162,37 @@ public class LuastdLib implements LuaLibrary {
 
             return ret.Get();
         }));
+
+        LuaTable entity = new LuaTable();
+        entity.rawset("new", LuaUtils.varArgFunctionFactory((s, args) -> {
+            LuaTable _G = s.getMainThread().getfenv();
+            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            
+            NbtCompound nbt;
+            if (args.count() == 3) {
+                nbt = (NbtCompound)LuaUtils.getFromLua(args.arg(3)).copy();
+            }
+            else {
+                nbt = new NbtCompound();
+            }
+            nbt.putString("id", args.arg(1).checkString());
+
+            Vec3d pos = MCLuaFactory.toVec(args.arg(2));
+
+            Entity ret = EntityType.loadEntityWithPassengers(nbt, source.getWorld(), e -> {
+                e.refreshPositionAndAngles(pos.x, pos.y, pos.z, e.getYaw(), e.getPitch());
+                return e;
+            });
+
+            if (ret instanceof MobEntity) {
+                ((MobEntity)ret).initialize(source.getWorld(), source.getWorld().getLocalDifficulty(ret.getBlockPos()), SpawnReason.COMMAND, null, null);
+            }
+
+            source.getWorld().spawnEntityAndPassengers(ret);
+
+            return MCLuaFactory.get(ret);
+        }));
+        env.rawset("Entity", entity);
 
         return env;
     }

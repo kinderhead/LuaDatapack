@@ -239,4 +239,8 @@ public class MCLuaFactory {
         stack.setNbt((NbtCompound) LuaUtils.getFromLua(val.rawget("nbt")));
         return stack;
     }
+
+    public static Vec3d toVec3d(LuaTable val) throws LuaError {
+        return new Vec3d(val.checkTable().rawget("x").checkDouble(), val.checkTable().rawget("y").checkDouble(), val.checkTable().rawget("z").checkDouble());
+    }
 }

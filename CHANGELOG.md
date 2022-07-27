@@ -5,6 +5,9 @@
     * `std:string`
     * `std:bit32`
     * `std:utf8`
+* Api features
+    * `Entity.new`
+        * Alternative to `summon`, it returns the entity spawned. `Entity` is a global variable representing the entity type as seen in [entity.d.ts](https://github.com/kinderhead/LuaDatapack/blob/master/luadatapacktypes/src/entity.d.ts)
 
 ## 0.6.0-beta
 
