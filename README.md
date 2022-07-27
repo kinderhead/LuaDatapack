@@ -19,6 +19,7 @@ Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.l
 * Scripts can be included from datapacks using `require` and use Minecraft's namespaced id system
 * Supports a few common utility libraries
     * [json.lua](https://github.com/rxi/json.lua)
+    * [class.lua](https://github.com/jonstoler/class.lua)
 
 ## Commands
 
