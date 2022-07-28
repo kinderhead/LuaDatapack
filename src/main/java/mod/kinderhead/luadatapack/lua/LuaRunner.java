@@ -16,7 +16,6 @@ import org.squiddev.cobalt.lib.BaseLib;
 import org.squiddev.cobalt.lib.TableLib;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
-import mod.kinderhead.luadatapack.lua.api.CommandsLib;
 import mod.kinderhead.luadatapack.lua.api.LuastdLib;
 import mod.kinderhead.util.Out;
 
@@ -48,7 +47,6 @@ public class LuaRunner {
 
         // LuaDatapack api
         _G.load(state, new LuastdLib());
-        _G.load(state, new CommandsLib());
 
         LuaDatapack.LOGGER.info("Running lua script: " + name);
         try {

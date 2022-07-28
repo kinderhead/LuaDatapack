@@ -1,3 +1,8 @@
+## 0.7.1-beta
+
+* Moved command wrapper functions to their own module: `std:commands`
+    * `run` is still in the global namespace, this may change
+
 ## 0.7.0-beta
 
 * Not much, but there has not been a release in a while

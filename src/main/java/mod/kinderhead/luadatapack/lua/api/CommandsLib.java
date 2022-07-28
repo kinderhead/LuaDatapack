@@ -22,12 +22,12 @@ import net.minecraft.util.math.Vec3d;
 public class CommandsLib implements LuaLibrary {
     @Override
     public LuaValue add(LuaState state, LuaTable env) {
-        // One args
-        LibFunction.bind(env, CommandsLib1::new, new String[]{"say"});
-        LibFunction.bind(env, CommandsLib0::new, new String[]{"reload", "seed"});
-        LibFunction.bind(env, CommandsLibV::new, new String[]{"teleport", "tp"});
-
-        return env;
+        LuaTable table = new LuaTable();
+        LibFunction.bind(table, CommandsLib1::new, new String[]{"say"});
+        LibFunction.bind(table, CommandsLib0::new, new String[]{"reload", "seed"});
+        LibFunction.bind(table, CommandsLibV::new, new String[]{"teleport", "tp"});
+        env.rawset("commands", table);
+        return table;
     }
 
     private static final class CommandsLib0 extends ZeroArgFunction {

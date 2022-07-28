@@ -62,6 +62,10 @@ public class LuastdLib implements LuaLibrary {
                 case "std:utf8":
                     state.getMainThread().getfenv().load(state, new Utf8Lib());
                     break;
+                
+                case "std:commands":
+                    state.getMainThread().getfenv().load(state, new CommandsLib());
+                    break;
             
                 default:
                     break;
