@@ -29,10 +29,10 @@ interface Commands {
      */
     teleport(location : Vec3d) : void;
 
-     /**
-      * Teleports an entity
-      * @param entity Entity
-      * @param location Location
-      */
+    /**
+     * Teleports an entity
+     * @param entity Entity
+     * @param location Location
+     */
     teleport(entity : Entity, location : Vec3d) : void;
 }
