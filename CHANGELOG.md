@@ -1,3 +1,10 @@
+## 0.8.0-beta
+
+* I'm back :)
+* New `std:storage` module for persistant object storage
+* Bug fixes
+    * Fixed some issues with importing modules
+
 ## 0.7.1-beta
 
 * Moved command wrapper functions to their own module: `std:commands`

@@ -9,16 +9,21 @@ import net.minecraft.server.MinecraftServer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.squiddev.cobalt.LuaState;
+import org.squiddev.cobalt.LuaTable;
 
 import mod.kinderhead.luadatapack.datapack.ReloadListener;
 
 public class LuaDatapack implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("LuaDatapack");
 	public static MinecraftServer SERVER = null;
+	public static LuaState DUMMY = LuaState.builder().build();
 
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing");
+
+		DUMMY.setupThread(new LuaTable());
 
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ReloadListener());
 

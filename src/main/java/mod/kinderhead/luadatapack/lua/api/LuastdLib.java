@@ -48,24 +48,22 @@ public class LuastdLib implements LuaLibrary {
 
             switch (name) {
                 case "std:math":
-                    state.getMainThread().getfenv().load(state, new MathLib());
-                    break;
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new MathLib());
                 
                 case "std:string":
-                    state.getMainThread().getfenv().load(state, new StringLib());
-                    break;
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new StringLib());
 
                 case "std:bit32":
-                    state.getMainThread().getfenv().load(state, new Bit32Lib());
-                    break;
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new Bit32Lib());
 
                 case "std:utf8":
-                    state.getMainThread().getfenv().load(state, new Utf8Lib());
-                    break;
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new Utf8Lib());
                 
                 case "std:commands":
-                    state.getMainThread().getfenv().load(state, new CommandsLib());
-                    break;
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new CommandsLib());
+                
+                case "std:storage":
+                    return LuaDatapack.DUMMY.getMainThread().getfenv().load(LuaDatapack.DUMMY, new StorageLib());
             
                 default:
                     break;
