@@ -13,6 +13,7 @@ import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
 
 import mod.kinderhead.luadatapack.datapack.ReloadListener;
+import mod.kinderhead.luadatapack.lua.api.StorageLib;
 
 public class LuaDatapack implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("LuaDatapack");
@@ -31,8 +32,9 @@ public class LuaDatapack implements ModInitializer {
 			LuaCommand.register(dispatcher, registryAccess, environment);
 		});
 
-		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
+		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
 			SERVER = server;
+			StorageLib.Init();
 		});
 
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> {

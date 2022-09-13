@@ -8,11 +8,23 @@ import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.lib.LuaLibrary;
 
+import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.util.Identifier;
 
 public class StorageLib implements LuaLibrary {
     public static HashMap<Identifier, LuaValue> data = new HashMap<>();
+
+    public static void Init() {
+        data = new HashMap<>();
+        LuaDatapack.SERVER.getOverworld().getPersistentStateManager().getOrCreate((nbt) -> {
+            var state = new StorageState(nbt);
+            data = state.data;
+            return state;
+        }, () -> {
+            return new StorageState();
+        }, "lua");
+    }
 
     @Override
     public LuaValue add(LuaState state, LuaTable env) {

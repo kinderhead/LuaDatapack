@@ -48,8 +48,9 @@ A few utility libraries are included by default
 |Standard lua library|`std:bit32`|
 |Standard lua library|`std:utf8`|
 |Commands library|`std:commands`|
+|Storage library|`std:storage`|
 
-Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like this one, it can be replaced in the future
+Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like these, they can be replaced in the future
 
 ## Contributing
 
