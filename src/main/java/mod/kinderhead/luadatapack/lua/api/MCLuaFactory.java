@@ -1,5 +1,9 @@
 package mod.kinderhead.luadatapack.lua.api;
 
+import static org.squiddev.cobalt.ValueFactory.valueOf;
+
+import java.util.UUID;
+
 import org.squiddev.cobalt.Constants;
 import org.squiddev.cobalt.LuaError;
 import org.squiddev.cobalt.LuaTable;
@@ -15,14 +19,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-
-import static org.squiddev.cobalt.ValueFactory.valueOf;
-
-import java.util.UUID;
+import net.minecraft.util.math.Vec3i;
 
 public class MCLuaFactory {
     public static LuaValue get(ServerCommandSource source) {
@@ -52,7 +53,16 @@ public class MCLuaFactory {
         return table;
     }
 
-    public static Vec3d toVec(LuaValue val) {
+    public static Vec3i toVeci(LuaValue val) {
+        try {
+            return new Vec3i(val.checkTable().rawget("x").checkInteger(), val.checkTable().rawget("y").checkInteger(), val.checkTable().rawget("z").checkInteger());
+        } catch (LuaError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Vec3d toVecd(LuaValue val) {
         try {
             return new Vec3d(val.checkTable().rawget("x").checkDouble(), val.checkTable().rawget("y").checkDouble(), val.checkTable().rawget("z").checkDouble());
         } catch (LuaError e) {
@@ -71,7 +81,7 @@ public class MCLuaFactory {
 
         table.rawset("set_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
             Entity self = toEntity(arg1);
-            LuaDatapack.SERVER.getCommandManager().execute(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + arg2.checkTable().rawget("x").checkDouble() + " " + arg2.checkTable().rawget("y").checkDouble() + " " + arg2.checkTable().rawget("z").checkDouble());
+            LuaDatapack.executeCommand(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + arg2.checkTable().rawget("x").checkDouble() + " " + arg2.checkTable().rawget("y").checkDouble() + " " + arg2.checkTable().rawget("z").checkDouble());
             return null;
         }));
 
@@ -111,7 +121,7 @@ public class MCLuaFactory {
             LuaTable _G = state.getMainThread().getfenv();
             ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
             
-            LuaDatapack.SERVER.getCommandManager().execute(source, "effect give " + self.getUuidAsString() + " " + args.arg(2).checkString() + " " + String.valueOf(args.arg(3).checkInteger()) + " " + String.valueOf(args.arg(4).checkInteger()) + " " + String.valueOf(args.arg(5).checkBoolean()));
+            LuaDatapack.executeCommand(source, "effect give " + self.getUuidAsString() + " " + args.arg(2).checkString() + " " + String.valueOf(args.arg(3).checkInteger()) + " " + String.valueOf(args.arg(4).checkInteger()) + " " + String.valueOf(args.arg(5).checkBoolean()));
 
             return Constants.NIL;
         }));
@@ -121,7 +131,7 @@ public class MCLuaFactory {
             LuaTable _G = state.getMainThread().getfenv();
             ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
             
-            LuaDatapack.SERVER.getCommandManager().execute(source, "effect clear " + self.getUuidAsString());
+            LuaDatapack.executeCommand(source, "effect clear " + self.getUuidAsString());
 
             return Constants.NIL;
         }));
@@ -228,14 +238,14 @@ public class MCLuaFactory {
         LuaTable table = new LuaTable();
 
         table.rawset("count", valueOf(stack.getCount()));
-        table.rawset("id", valueOf(Registry.ITEM.getId(stack.getItem()).toString()));
+        table.rawset("id", valueOf(Registries.ITEM.getId(stack.getItem()).toString()));
         table.rawset("nbt", LuaUtils.getFromNbt(stack.getNbt()));
 
         return table;
     }
 
     public static ItemStack toItemStack(LuaTable val) throws LuaError {
-        ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(val.rawget("id").checkString())), val.rawget("count").checkInteger());
+        ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(val.rawget("id").checkString())), val.rawget("count").checkInteger());
         stack.setNbt((NbtCompound) LuaUtils.getFromLua(val.rawget("nbt")));
         return stack;
     }

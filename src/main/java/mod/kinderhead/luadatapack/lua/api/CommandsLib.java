@@ -38,11 +38,11 @@ public class CommandsLib implements LuaLibrary {
 
             switch (opcode) {
                 case 0:
-                    LuaDatapack.SERVER.getCommandManager().execute(source, "reload");
+                    LuaDatapack.executeCommand(source, "reload");
                     break;
                 
                 case 1:
-                    LuaDatapack.SERVER.getCommandManager().execute(source, "seed");
+                    LuaDatapack.executeCommand(source, "seed");
 
                     break;
                 default:
@@ -61,7 +61,7 @@ public class CommandsLib implements LuaLibrary {
 
             switch (opcode) {
                 case 0:
-                    LuaDatapack.SERVER.getCommandManager().execute(source, "say " + arg.toString().strip());
+                    LuaDatapack.executeCommand(source, "say " + arg.toString().strip());
                     break;
             
                 default:
@@ -88,13 +88,13 @@ public class CommandsLib implements LuaLibrary {
                     }
                     else if (args.count() == 1) {
                         entity = null;
-                        pos = MCLuaFactory.toVec(args.arg(1));
-                        LuaDatapack.SERVER.getCommandManager().execute(source, "tp " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
+                        pos = MCLuaFactory.toVecd(args.arg(1));
+                        LuaDatapack.executeCommand(source, "tp " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
                     }
                     else {
                         entity = MCLuaFactory.toEntity(args.arg(1));
-                        pos = MCLuaFactory.toVec(args.arg(2));
-                        LuaDatapack.SERVER.getCommandManager().execute(source, "tp " + entity.getUuidAsString() + " " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
+                        pos = MCLuaFactory.toVecd(args.arg(2));
+                        LuaDatapack.executeCommand(source, "tp " + entity.getUuidAsString() + " " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
                     }
                     return Constants.NIL;
                 default:

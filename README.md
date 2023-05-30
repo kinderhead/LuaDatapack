@@ -1,6 +1,5 @@
 ![Logo](https://raw.githubusercontent.com/kinderhead/LuaDatapack/master/logo.png)
 
-[![Build](https://img.shields.io/github/workflow/status/kinderhead/LuaDatapack/build)](https://github.com/kinderhead/LuaDatapack/actions)
 [![Releases](https://img.shields.io/github/v/release/kinderhead/LuaDatapack?include_prereleases&sort=semver)](https://github.com/kinderhead/LuaDatapack/releases)
 
 # LuaDatapack
@@ -17,6 +16,7 @@ Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.l
 
 * Uses [Cobalt](https://github.com/SquidDev/Cobalt) under the hood, which gives fast execution times
 * Scripts can be included from datapacks using `require` and use Minecraft's namespaced id system
+* [TypeScriptToLua](https://typescripttolua.github.io/) supprt
 * Supports a few common utility libraries
     * [json.lua](https://github.com/rxi/json.lua)
     * [class.lua](https://github.com/jonstoler/class.lua)
@@ -33,7 +33,7 @@ Arguments can be accessed via an array named `args`
 
 ## Api
 
-The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/). Although it is for [TypeScriptToLua](https://typescripttolua.github.io/), it can be adapted for lua
+The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/)
 
 ## Standard library
 
@@ -50,21 +50,22 @@ A few utility libraries are included by default
 |Commands library|`std:commands`|
 |Storage library|`std:storage`|
 
-Note: If you prefer a different OOP library, you can simply add one to the datapack. If people do not like these, they can be replaced in the future
+Note: If you prefer a different OOP library, you can simply add one to the datapack
 
 ## Contributing
 
-Any help is appreciated. Issues and feature requests can be shared [here](https://github.com/kinderhead/LuaDatapack/issues)
+Building this repo is the same as any other Fabric mod. There may be issues with libraries not loading when starting the game, but running the game though the VSCode debugger works for some reason
 
 ### Things to do
+
 * Optimize lua api
-* Use commands less (except `say`, as it is faster for some reason)
+* Add more api features
+* Use commands less internally (except `say`, as it is faster for some reason)
 
 ## Planned features
 
 * More commands
 * Development tools with [TypeScriptToLua](https://typescripttolua.github.io/)
-* Others can be found [here](https://github.com/users/kinderhead/projects/2/views/1)
 
 ## Links
 

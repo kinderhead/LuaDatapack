@@ -1,3 +1,7 @@
+## 0.9.0-beta
+* Updated to 1.19.4
+* Did some clean up
+
 ## 0.8.0-beta
 
 * I'm back :)
