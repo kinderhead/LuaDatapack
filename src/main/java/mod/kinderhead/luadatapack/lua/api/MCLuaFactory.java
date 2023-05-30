@@ -110,7 +110,7 @@ public class MCLuaFactory {
             
             // EntityDataObject does it this way
             UUID id = self.getUuid();
-            self.readNbt(data.getNbt().copyFrom((NbtCompound) LuaUtils.getFromLua(arg2)));
+            self.readNbt(data.getNbt().copyFrom((NbtCompound) LuaUtils.getNbtFromLua(arg2)));
             self.setUuid(id);
             
             return Constants.NIL;
@@ -246,7 +246,7 @@ public class MCLuaFactory {
 
     public static ItemStack toItemStack(LuaTable val) throws LuaError {
         ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(val.rawget("id").checkString())), val.rawget("count").checkInteger());
-        stack.setNbt((NbtCompound) LuaUtils.getFromLua(val.rawget("nbt")));
+        stack.setNbt((NbtCompound) LuaUtils.getNbtFromLua(val.rawget("nbt")));
         return stack;
     }
 

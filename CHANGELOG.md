@@ -1,13 +1,17 @@
+## 0.9.1-beta
+
+* `/lua` command now returns any integer that the lua script returns
+* Bug fixes
+    * Fixed some issues with importing modules
+
 ## 0.9.0-beta
+
 * Updated to 1.19.4
 * Did some clean up
 
 ## 0.8.0-beta
 
-* I'm back :)
-* New `std:storage` module for persistant object storage
-* Bug fixes
-    * Fixed some issues with importing modules
+* Not sure where this version went. Oops
 
 ## 0.7.1-beta
 

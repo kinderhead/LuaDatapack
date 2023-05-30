@@ -105,7 +105,7 @@ interface Entity {
      * Gets an nbt object from the entity
      * 
      * @remarks
-     * `path` cannot include subpaths, as `/data get` has. This may change eventually
+     * `path` cannot include subpaths like `/data get` can. This may change eventually
      * 
      * @param path NBT key
      */

@@ -1,5 +1,11 @@
 package mod.kinderhead.luadatapack.lua;
 
+import static org.squiddev.cobalt.ValueFactory.valueOf;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+import org.squiddev.cobalt.Constants;
 import org.squiddev.cobalt.LuaError;
 import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
@@ -22,13 +28,6 @@ import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.nbt.NbtString;
-
-import static org.squiddev.cobalt.ValueFactory.valueOf;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-
-import org.squiddev.cobalt.Constants;
 
 public class LuaUtils {
     public static LuaTable readonly(LuaValue t) {
@@ -133,7 +132,7 @@ public class LuaUtils {
         return Constants.NIL;
     }
 
-    public static NbtElement getFromLua(LuaValue value) throws LuaError {
+    public static NbtElement getNbtFromLua(LuaValue value) throws LuaError {
         if (value.isBoolean()) {
             return NbtByte.of((byte) (value.checkBoolean() ? 1 : 0));
         } else if (value.isInteger()) {
@@ -156,7 +155,7 @@ public class LuaUtils {
                     if ((k = n.first()).isNil())
                         break;
                     LuaValue v = n.arg(2);
-                    dict.put(k.checkString(), getFromLua(v));
+                    dict.put(k.checkString(), getNbtFromLua(v));
                 }
 
                 return dict;
@@ -165,7 +164,7 @@ public class LuaUtils {
                 NbtList list = new NbtList();
 
                 for (int i = 0; i < table.getArrayLength(); i++) {
-                    list.add(getFromLua(table.rawget(i)));
+                    list.add(getNbtFromLua(table.rawget(i)));
                 }
 
                 return list;

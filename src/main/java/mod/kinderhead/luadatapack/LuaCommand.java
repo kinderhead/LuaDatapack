@@ -50,8 +50,10 @@ public class LuaCommand {
             return -1;
         }
 
+        Out<LuaValue> out = new Out<LuaValue>();
+
         try {
-            if (exec(code, id.toString(), ctx.getSource(), args, new Out<LuaValue>()) == -1) {
+            if (exec(code, id.toString(), ctx.getSource(), args, out) == -1) {
                 ctx.getSource().sendFeedback(Text.translatable("text.luadatapack.lua_error", id.toString()), false);
                 return -1;
             }
@@ -59,7 +61,11 @@ public class LuaCommand {
             return -1;
         }
         
-        return 1;
+        try {
+            return out.Get().checkInteger();
+        } catch (LuaError e) {
+            return 0;
+        }
     }
 
     public static int exec(String code, String name, ServerCommandSource source, String[] args, Out<LuaValue> ret) throws LuaError {

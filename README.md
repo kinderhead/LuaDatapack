@@ -29,7 +29,7 @@ Usage: `/lua <name> [<args>]`
 
 Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar`
 
-Arguments can be accessed via an array named `args`
+Arguments can be accessed via an array called `args` in the lua script
 
 ## Api
 

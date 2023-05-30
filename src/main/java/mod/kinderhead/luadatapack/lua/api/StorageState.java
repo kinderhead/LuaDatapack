@@ -10,31 +10,40 @@ import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateManager;
+import net.minecraft.world.World;
 
 public class StorageState extends PersistentState {
     public HashMap<Identifier, LuaValue> data = new HashMap<>();
 
-    public StorageState() {
+    public static StorageState create(NbtCompound nbt) {
         LuaDatapack.LOGGER.info("Loading storage");
-    }
 
-    public StorageState(NbtCompound nbt) {
-        LuaDatapack.LOGGER.info("Loading storage");
+        StorageState state = new StorageState();
+
         for (var i : nbt.getKeys()) {
-            data.put(new Identifier(i), LuaUtils.getFromNbt(nbt.get(i)));
+            state.data.put(new Identifier(i), LuaUtils.getFromNbt(nbt.get(i)));
         }
+
+        return state;
     }
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         LuaDatapack.LOGGER.info("Saving storage");
-        for (var i : StorageLib.data.keySet()) {
+        for (var i : data.keySet()) {
             try {
-                nbt.put(i.toString(), LuaUtils.getFromLua(data.get(i)));
+                nbt.put(i.toString(), LuaUtils.getNbtFromLua(data.get(i)));
             } catch (LuaError e) {
                 LuaDatapack.LOGGER.error("Could not convert lua object to nbt. Will not save object", e);
             }
         }
         return nbt;
+    }
+
+    public static StorageState get() {
+        PersistentStateManager manager = LuaDatapack.SERVER.getWorld(World.OVERWORLD).getPersistentStateManager();
+
+        return manager.getOrCreate(StorageState::create, StorageState::new, "luadatapack");
     }
 }

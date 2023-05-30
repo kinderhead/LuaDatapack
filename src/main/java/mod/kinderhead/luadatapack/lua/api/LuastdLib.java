@@ -34,11 +34,11 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.registry.Registries;
 
 public class LuastdLib implements LuaLibrary {
     @Override
@@ -158,7 +158,7 @@ public class LuastdLib implements LuaLibrary {
             entity.rawset("new", LuaUtils.varArgFunctionFactory((s, args) -> {     
                 NbtCompound nbt;
                 if (args.count() == 3) {
-                    nbt = (NbtCompound)LuaUtils.getFromLua(args.arg(3)).copy();
+                    nbt = (NbtCompound)LuaUtils.getNbtFromLua(args.arg(3)).copy();
                 }
                 else {
                     nbt = new NbtCompound();
