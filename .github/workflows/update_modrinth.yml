@@ -1,0 +1,19 @@
+name: update_modrinth
+on: [pull_request, push]
+
+jobs:
+  update_modrinth:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - run: pip install requests
+      - run: python update_modrinth.py
+        env: 
+          MODRINTH_API: ${{ secrets.MODRINTH_API }}
