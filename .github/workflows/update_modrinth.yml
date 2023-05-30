@@ -14,5 +14,6 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
       - run: python update_modrinth.py
+      - run: pip install -r requirements.txt
         env: 
           MODRINTH_API: ${{ secrets.MODRINTH_API }}

@@ -10,4 +10,5 @@ readme = ""
 with open("README.md", "r") as f:
     readme = f.read()
 
-patch("project/bgUHPLzW", {"body": readme})
+if (patch("project/bgUHPLzW", {"body": readme}).status_code > 400):
+    exit(1)
