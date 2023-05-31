@@ -1,4 +1,4 @@
-## 0.9.1-beta
+## 0.10.0-beta
 
 * `/lua` command now returns any integer that the lua script returns
 * New `std:storage` module which allows permanent storage
