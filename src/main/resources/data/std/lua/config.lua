@@ -1,3 +1,5 @@
+local string = require("std:string")
+
 local config = {}
 
 function config.without_underscore()

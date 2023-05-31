@@ -82,7 +82,7 @@ public class LuastdLib implements LuaLibrary {
                 
                 String data;
 
-                if (new Identifier(name).getNamespace().equals("std")) {
+                if (new Identifier(name).getNamespace().equals("std") || new Identifier(name).getNamespace().equals(new Identifier(env.rawget("filename").checkString()).getNamespace())) {
                     data = Scripts.get(new Identifier(name));
                 } else {
                     data = Scripts.getImportable(new Identifier(name));

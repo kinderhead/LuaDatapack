@@ -12,7 +12,6 @@ import org.squiddev.cobalt.UnwindThrowable;
 import org.squiddev.cobalt.ValueFactory;
 import org.squiddev.cobalt.compiler.LoadState;
 import org.squiddev.cobalt.lib.BaseLib;
-import org.squiddev.cobalt.lib.StringLib;
 import org.squiddev.cobalt.lib.TableLib;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
@@ -40,7 +39,6 @@ public class LuaRunner {
 
         _G.load(state, new BaseLib());
         _G.load(state, new TableLib());
-        _G.load(state, new StringLib());
 
         _G.rawset("dofile", Constants.NIL);
         _G.rawset("loadfile", Constants.NIL);

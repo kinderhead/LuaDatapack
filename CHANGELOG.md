@@ -10,7 +10,6 @@
 * Added project system
 * Bug fixes
     * Fixed some issues with importing modules
-    * Added missing `string` global
 
 ## 0.9.0-beta
 

@@ -49,12 +49,40 @@ A few utility libraries are included by default
 |Standard lua library|`std:utf8`|
 |Commands library|`std:commands`|
 |Storage library|`std:storage`|
+|Configuration utilities library|`std:config`|
 
-Note: If you prefer a different OOP library, you can simply add one to the datapack
+Note: If you prefer a different OOP library, you can simply add one to your datapack
+
+## Project system
+
+There is a simple project system which allows for customization of which scripts can be executed and imported by external projects (scripts not in the same namespace)
+
+To customize your project, add a `_project.lua` file to your namespace. For example if the namespace was `foo` then you would make a `foo:_project.lua`:
+
+``` lua
+return {
+    callables = {"foo:bar"},
+    importables = {"foo:baz"}
+}
+```
+
+In the above example `foo:bar` is a script to be ran via `/lua`, and `foo:baz` is a script that any file can `require`. Scripts can import any script in the same namespace, even if it is not included in the `importables` array. If a project does not include a `_project.lua`, then the default `std:_default_datapack` is used instead:
+``` lua
+local config = require("std:config")
+
+return {
+    callables = config.without_underscore(),
+    importables = {}
+}
+```
+
+Note: not all fields need to be explicitly defined
+
+More project features will be added before version 1.0
 
 ## Contributing
 
-Building this repo is the same as any other Fabric mod. There may be issues with libraries not loading when starting the game, but running the game though the VSCode debugger works for some reason
+Building this repo is the same as any other Fabric mod. There may be issues with libraries (Cobalt, Apache commons-io, etc) not loading when starting the game, but running the game though the VSCode debugger works for some reason
 
 ### Things to do
 
