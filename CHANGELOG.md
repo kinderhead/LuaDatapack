@@ -6,8 +6,11 @@
 * Added support for `print()`
 * New `print_db()` function which prints to the console instead of chat
 * Modified `entity.add_effect` slightly
+* Added new global variable `filename`
+* Added project system
 * Bug fixes
     * Fixed some issues with importing modules
+    * Added missing `string` global
 
 ## 0.9.0-beta
 

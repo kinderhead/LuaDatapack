@@ -1,15 +1,15 @@
 package mod.kinderhead.util;
 
 public class Out<T> {
-    T obj = null;
+    private T obj = null;
 
     public Out() {}
 
-    public void Set(T obj) {
+    public void set(T obj) {
         this.obj = obj;
     }
 
-    public T Get() {
+    public T get() {
         return obj;
     }
 }

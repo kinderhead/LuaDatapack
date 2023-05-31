@@ -19,8 +19,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.command.CommandManager.RegistrationEnvironment;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
 public class LuaCommand {
@@ -30,7 +30,7 @@ public class LuaCommand {
             .requires(source -> source.hasPermissionLevel(2))
             .then(CommandManager.argument("name", IdentifierArgumentType.identifier())
                 .suggests((ctx, builder) -> {
-                    CommandSource.forEachMatching(Scripts.idSet(true), builder.getRemaining().toLowerCase(Locale.ROOT), id -> id, id -> builder.suggest(id.toString()));
+                    CommandSource.forEachMatching(Scripts.idSet(), builder.getRemaining().toLowerCase(Locale.ROOT), id -> id, id -> builder.suggest(id.toString()));
                     return builder.buildFuture();
                 })
                 .executes(ctx -> run(ctx, new String[0]))
@@ -62,23 +62,33 @@ public class LuaCommand {
         }
         
         try {
-            return out.Get().checkInteger();
+            return out.get().checkInteger();
         } catch (LuaError e) {
             return 0;
         }
     }
 
     public static int exec(String code, String name, ServerCommandSource source, String[] args, Out<LuaValue> ret) throws LuaError {
+        LuaValue[] values = new LuaValue[args.length];
+
+        for (int i = 0; i < args.length; i++) {
+            values[i] = ValueFactory.valueOf(args[i]);
+        }
+
+        return exec(code, name, source, values, ret);
+    }
+
+    public static int exec(String code, String name, ServerCommandSource source, LuaValue[] args, Out<LuaValue> ret) throws LuaError {
         LuaTable env = new LuaTable();
         env.rawset("src", MCLuaFactory.get(source.withSilent()));
 
         LuaTable a = new LuaTable();
-        for (String string : args) {
-            a.insert(0, ValueFactory.valueOf(string));
+        for (LuaValue i : args) {
+            a.insert(0, i);
         }
         env.rawset("args", a);
 
-        if (LuaRunner.Run(code, name, env, ret)) {
+        if (LuaRunner.run(code, name, env, ret)) {
             return 1;
         }
 

@@ -29,6 +29,8 @@ public class ReloadListener implements IdentifiableResourceReloadListener, Synch
         }
 
         LuaDatapack.LOGGER.info("Loaded " + String.valueOf(count) + " lua scripts");
+
+        Scripts.initAll();
     }
 
     @Override

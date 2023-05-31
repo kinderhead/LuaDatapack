@@ -45,9 +45,14 @@ public class LuastdLib implements LuaLibrary {
     @Override
     public LuaValue add(LuaState state, LuaTable env) {
         LuaTable _G = state.getCurrentThread().getfenv();
+
         ServerCommandSource source;
         try {
-            source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            if (_G.rawget("src").isNil()) {
+                source = null;
+            } else {
+                source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
+            }
 
             env.rawset("require", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
                 String name = arg1.checkString();
@@ -74,8 +79,15 @@ public class LuastdLib implements LuaLibrary {
                     default:
                         break;
                 }
+                
+                String data;
 
-                String data = Scripts.get(new Identifier(name));
+                if (new Identifier(name).getNamespace().equals("std")) {
+                    data = Scripts.get(new Identifier(name));
+                } else {
+                    data = Scripts.getImportable(new Identifier(name));
+                }
+
                 if (data == null) {
                     throw new LuaError("Could not find module " + name);
                 } else {
@@ -152,7 +164,7 @@ public class LuastdLib implements LuaLibrary {
                 var ret = new Out<LuaValue>();
                 LuaCommand.exec(code, args.first().checkString(), source, list.toArray(new String[list.size()]), ret);
 
-                return ret.Get();
+                return ret.get();
             }));
 
             env.rawset("print", LuaUtils.varArgFunctionFactory((s, args) -> {

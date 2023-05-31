@@ -15,6 +15,15 @@ declare let args : string[];
 declare let src : Source;
 
 /**
+ * Namespaced id of the file that was called
+ * 
+ * @remarks
+ * If a file was `require`d, `filename` will not change
+ * 
+ */
+declare let filename : string;
+
+/**
  * Imports a module from a datapack using a namespaced id
  * @param mod Module name
  */
