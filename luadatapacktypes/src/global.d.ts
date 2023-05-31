@@ -64,3 +64,23 @@ declare function set_block(pos : Vec3d, id : string) : void;
  * @param args Args
  */
 declare function run(script : string, ...args : string[]) : void;
+
+/**
+ * Prints objects to the chat
+ * 
+ * @remarks
+ * If an object is a table, it is converted to NBT before printing
+ * 
+ * @param args Args
+ */
+declare function print(...args : any[]) : void;
+
+/**
+ * Prints objects to the console
+ * 
+ * @remarks
+ * If an object is a table, it is converted to NBT before printing
+ * 
+ * @param args Args
+ */
+declare function print_db(...args : any[]) : void;

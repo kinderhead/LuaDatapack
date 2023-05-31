@@ -1,6 +1,10 @@
 ## 0.9.1-beta
 
 * `/lua` command now returns any integer that the lua script returns
+* New `std:storage` module which allows permanent storage
+    * Use `storage.save()` and `storage.load()` to store data. Check the documentation for more information
+* Added support for `print()`
+* New `print_db()` function which prints to the console instead of chat
 * Bug fixes
     * Fixed some issues with importing modules
 

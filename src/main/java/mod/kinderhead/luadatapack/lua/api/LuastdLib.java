@@ -36,6 +36,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -152,6 +153,36 @@ public class LuastdLib implements LuaLibrary {
                 LuaCommand.exec(code, args.first().checkString(), source, list.toArray(new String[list.size()]), ret);
 
                 return ret.Get();
+            }));
+
+            env.rawset("print", LuaUtils.varArgFunctionFactory((s, args) -> {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 1; i < args.count() + 1; i++) {
+                    if (args.arg(i).isTable()) {
+                        builder.append(LuaUtils.getNbtFromLua(args.arg(i)).toString());
+                    } else {
+                        builder.append(args.arg(i).toString());
+                    }
+                    builder.append(" ");
+                }
+                builder.deleteCharAt(builder.length() - 1);
+                LuaDatapack.SERVER.getPlayerManager().broadcast(Text.of(builder.toString()), false);
+                return Constants.NIL;
+            }));
+
+            env.rawset("print_db", LuaUtils.varArgFunctionFactory((s, args) -> {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 1; i < args.count() + 1; i++) {
+                    if (args.arg(i).isTable()) {
+                        builder.append(LuaUtils.getNbtFromLua(args.arg(i)).toString());
+                    } else {
+                        builder.append(args.arg(i).toString());
+                    }
+                    builder.append(" ");
+                }
+                builder.deleteCharAt(builder.length() - 1);
+                LuaDatapack.LOGGER.info(builder.toString());
+                return Constants.NIL;
             }));
 
             LuaTable entity = new LuaTable();

@@ -33,7 +33,7 @@ public class LuaDatapack implements ModInitializer {
 			LuaCommand.register(dispatcher, registryAccess, environment);
 		});
 
-		ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
+		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 			SERVER = server;
 			StorageLib.Init();
 		});
