@@ -124,14 +124,12 @@ interface Entity {
      * @param effect Effect
      * @param duration Duration in seconds
      * @param amplifier Amplifier
-     * @param hide_particles Hides effect particles
+     * @param show_particles Show effect particles
      */
-    add_effect(effect : string, duration : number, amplifier : number, hide_particles : boolean) : void;
+    add_effect(effect : string, duration : number, amplifier : number, show_particles : boolean) : void;
 
     /**
      * Clears all effects
-     * 
-     * @remarks It calls `/effect clear`
      */
     clear_effects() : void;
 }

@@ -15,6 +15,7 @@ import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -118,20 +119,16 @@ public class MCLuaFactory {
 
         table.rawset("add_effect", LuaUtils.varArgFunctionFactory((state, args) -> {
             Entity self = toEntity(args.first());
-            LuaTable _G = state.getMainThread().getfenv();
-            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
-            
-            LuaDatapack.executeCommand(source, "effect give " + self.getUuidAsString() + " " + args.arg(2).checkString() + " " + String.valueOf(args.arg(3).checkInteger()) + " " + String.valueOf(args.arg(4).checkInteger()) + " " + String.valueOf(args.arg(5).checkBoolean()));
 
+            if (self instanceof LivingEntity) ((LivingEntity)self).addStatusEffect(new StatusEffectInstance(Registries.STATUS_EFFECT.get(new Identifier(args.arg(2).checkString())), args.arg(3).checkInteger()*20, args.arg(4).checkInteger()-1, false, args.arg(5).checkBoolean()));
+            
             return Constants.NIL;
         }));
 
         table.rawset("clear_effects", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
             Entity self = toEntity(arg1);
-            LuaTable _G = state.getMainThread().getfenv();
-            ServerCommandSource source = _G.rawget("src").checkTable().rawget("_obj").checkUserdata(ServerCommandSource.class);
             
-            LuaDatapack.executeCommand(source, "effect clear " + self.getUuidAsString());
+            if (self instanceof LivingEntity) ((LivingEntity)self).clearStatusEffects();
 
             return Constants.NIL;
         }));

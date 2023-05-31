@@ -5,6 +5,7 @@
     * Use `storage.save()` and `storage.load()` to store data. Check the documentation for more information
 * Added support for `print()`
 * New `print_db()` function which prints to the console instead of chat
+* Modified `entity.add_effect` slightly
 * Bug fixes
     * Fixed some issues with importing modules
 

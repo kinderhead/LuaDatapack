@@ -60,7 +60,7 @@ Building this repo is the same as any other Fabric mod. There may be issues with
 
 * Optimize lua api
 * Add more api features
-* Use commands less internally (except `say`, as it is faster for some reason)
+* Use commands less internally
 
 ## Planned features
 
