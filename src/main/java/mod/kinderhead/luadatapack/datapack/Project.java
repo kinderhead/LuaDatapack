@@ -18,8 +18,8 @@ import net.minecraft.util.Identifier;
 
 public class Project {
     private Map<Identifier, String> files = new HashMap<Identifier, String>();
-    private List<Identifier> executables = new ArrayList<>();
-    private List<Identifier> imports = new ArrayList<>();
+    private List<Identifier> scripts = new ArrayList<>();
+    private List<Identifier> exports = new ArrayList<>();
 
     public final String name;
 
@@ -40,16 +40,16 @@ public class Project {
     }
 
     public Collection<Identifier> getCallableIds() {
-        return executables;
+        return scripts;
     }
 
     public Collection<Identifier> getImportableIds() {
-        return imports;
+        return exports;
     }
 
     public boolean init() {
-        executables.clear();
-        imports.clear();
+        scripts.clear();
+        exports.clear();
 
         Identifier file;
         if (has(new Identifier(name, "_project"))) {
@@ -76,17 +76,17 @@ public class Project {
             try {
                 LuaTable data = out.get().checkTable();
 
-                if (!data.rawget("executables").isNil()) {
-                    LuaTable executables = data.rawget("executables").checkTable();
-                    for (int i = 1; i < executables.length() + 1; i++) {
-                        this.executables.add(new Identifier(executables.rawget(i).checkString()));
+                if (!data.rawget("scripts").isNil()) {
+                    LuaTable scripts = data.rawget("scripts").checkTable();
+                    for (int i = 1; i < scripts.length() + 1; i++) {
+                        this.scripts.add(new Identifier(scripts.rawget(i).checkString()));
                     }
                 }
 
-                if (!data.rawget("imports").isNil()) {
-                    LuaTable imports = data.rawget("imports").checkTable();
-                    for (int i = 1; i < imports.length() + 1; i++) {
-                        this.imports.add(new Identifier(imports.rawget(i).checkString()));
+                if (!data.rawget("exports").isNil()) {
+                    LuaTable exports = data.rawget("exports").checkTable();
+                    for (int i = 1; i < exports.length() + 1; i++) {
+                        this.exports.add(new Identifier(exports.rawget(i).checkString()));
                     }
                 }
 
