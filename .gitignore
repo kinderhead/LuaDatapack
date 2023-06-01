@@ -39,4 +39,4 @@ node_modules/
 # other
 
 *.aseprite
-**/test/
+**/test*/

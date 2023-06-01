@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,5 +46,13 @@ public class LuaDatapack implements ModInitializer {
 
 	public static int executeCommand(ServerCommandSource source, String cmd) {
 		return SERVER.getCommandManager().executeWithPrefix(source, cmd);
+	}
+
+	public static boolean broadcast(Text msg) {
+		if (SERVER == null) {
+			return false;
+		}
+		SERVER.getPlayerManager().broadcast(msg, false);
+		return true;
 	}
 }

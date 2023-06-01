@@ -49,10 +49,25 @@ public class Scripts {
     }
 
     public static void initAll() {
+        ArrayList<Project> failed = new ArrayList<>();
+
         for (Project i : projects.values()) {
             if (!i.init()) {
-                LuaDatapack.SERVER.getPlayerManager().broadcast(Text.translatable("text.luadatapack.project_error", i.name), false);
+                LuaDatapack.broadcast(Text.translatable("text.luadatapack.project_error", i.name));
+                failed.add(i);
+            } else {
+                for (String e : i.getDependencies()) {
+                    if (!projects.containsKey(e)) {
+                        LuaDatapack.broadcast(Text.translatable("text.luadatapack.project_error.missing_depend", i.name));
+                        LuaDatapack.LOGGER.error("Missing project " + e);
+                        failed.add(i);
+                    }
+                }
             }
+        }
+
+        for (Project i : failed) {
+            projects.values().remove(i);
         }
     }
 }

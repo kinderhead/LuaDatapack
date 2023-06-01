@@ -62,11 +62,12 @@ To customize your project, add a `_project.lua` file to your namespace. For exam
 ``` lua
 return {
     scripts = {"foo:bar"},
-    exports = {"foo:baz"}
+    exports = {"foo:baz"},
+    depends = {"hello"}
 }
 ```
 
-In the above example `foo:bar` is a script to be ran via `/lua`, and `foo:baz` is a script that any file can `require`. Scripts can import any script in the same namespace, even if it is not included in the `exports` array. If a project does not include a `_project.lua`, then the default `std:_default_datapack` is used instead:
+In the above example `foo:bar` is a script to be ran via `/lua`, `foo:baz` is a script that any file can `require`, and it requires the `hello` project to function. Scripts can import any script in the same namespace, even if it is not included in the `exports` array. If a project does not include a `_project.lua`, then the default `std:_default_datapack` is used instead:
 ``` lua
 local config = require("std:config")
 
@@ -78,7 +79,7 @@ return {
 
 Note: not all fields need to be explicitly defined
 
-More project features will be added before version 1.0
+If a project fails to load, all scripts in it are unable to load
 
 ## Contributing
 

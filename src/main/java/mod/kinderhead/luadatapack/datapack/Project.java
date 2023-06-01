@@ -20,6 +20,7 @@ public class Project {
     private Map<Identifier, String> files = new HashMap<Identifier, String>();
     private List<Identifier> scripts = new ArrayList<>();
     private List<Identifier> exports = new ArrayList<>();
+    private List<String> depends = new ArrayList<>();
 
     public final String name;
 
@@ -45,6 +46,10 @@ public class Project {
 
     public Collection<Identifier> getImportableIds() {
         return exports;
+    }
+
+    public Collection<String> getDependencies() {
+        return depends;
     }
 
     public boolean init() {
@@ -90,8 +95,11 @@ public class Project {
                     }
                 }
 
-                if (!data.rawget("dependencies").isNil()) {
-                    
+                if (!data.rawget("depends").isNil()) {
+                    LuaTable depends = data.rawget("depends").checkTable();
+                    for (int i = 1; i < depends.length() + 1; i++) {
+                        this.depends.add(depends.rawget(i).checkString());
+                    }
                 }
             } catch (LuaError e) {
                 LuaDatapack.LOGGER.error("Error initializing project " + name + ". Invalid _project.lua format. Check documentation for proper format");
