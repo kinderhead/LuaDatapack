@@ -1,5 +1,4 @@
 plugins {
-	id 'com.github.johnrengelman.shadow' version '8.1.1'
 	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'maven-publish'
 	id 'java'
@@ -26,16 +25,15 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	shadow 'org.squiddev:Cobalt:0.5.5'
-	shadow 'commons-io:commons-io:2.11.0'
+	implementation 'org.squiddev:Cobalt:0.5.5'
+	implementation 'commons-io:commons-io:2.11.0'
+
+	include 'org.squiddev:Cobalt:0.5.5'
+	include 'commons-io:commons-io:2.11.0'
 }
 
 base {
 	archivesName = project.archives_base_name
-}
-
-shadowJar {
-	configurations = [project.configurations.shadow]
 }
 
 processResources {
@@ -66,7 +64,6 @@ jar {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
 }
-tasks.jar.dependsOn(shadowJar)
 
 // configure the maven publication
 publishing {

@@ -28,12 +28,6 @@ public class LuaDatapack implements ModInitializer {
 
 		DUMMY.setupThread(new LuaTable());
 
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ReloadListener());
-
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			LuaCommand.register(dispatcher, registryAccess, environment);
-		});
-
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 			SERVER = server;
 			StorageLib.Init();
@@ -42,6 +36,12 @@ public class LuaDatapack implements ModInitializer {
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> {
 			SERVER = null;
 		});
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			LuaCommand.register(dispatcher, registryAccess, environment);
+		});
+
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ReloadListener());
 	}
 
 	public static int executeCommand(ServerCommandSource source, String cmd) {

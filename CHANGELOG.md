@@ -1,3 +1,8 @@
+## 0.10.1-beta
+
+* Fixed a bug where the mod would just not work
+    * [Bug report](https://github.com/kinderhead/LuaDatapack/issues/10)
+
 ## 0.10.0-beta
 
 * `/lua` command now returns any integer that the lua script returns
