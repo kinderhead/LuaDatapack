@@ -1,6 +1,6 @@
 local config = require("std:config")
 
 return {
-    callables = {},
-    importables = config.without_underscore()
+    executables = {},
+    imports = config.without_underscore()
 }

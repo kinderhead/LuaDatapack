@@ -18,8 +18,8 @@ import net.minecraft.util.Identifier;
 
 public class Project {
     private Map<Identifier, String> files = new HashMap<Identifier, String>();
-    private List<Identifier> callables = new ArrayList<>();
-    private List<Identifier> importables = new ArrayList<>();
+    private List<Identifier> executables = new ArrayList<>();
+    private List<Identifier> imports = new ArrayList<>();
 
     public final String name;
 
@@ -40,16 +40,16 @@ public class Project {
     }
 
     public Collection<Identifier> getCallableIds() {
-        return callables;
+        return executables;
     }
 
     public Collection<Identifier> getImportableIds() {
-        return importables;
+        return imports;
     }
 
     public boolean init() {
-        callables.clear();
-        importables.clear();
+        executables.clear();
+        imports.clear();
 
         Identifier file;
         if (has(new Identifier(name, "_project"))) {
@@ -76,18 +76,22 @@ public class Project {
             try {
                 LuaTable data = out.get().checkTable();
 
-                if (!data.rawget("callables").isNil()) {
-                    LuaTable callables = data.rawget("callables").checkTable();
-                    for (int i = 1; i < callables.length() + 1; i++) {
-                        this.callables.add(new Identifier(callables.rawget(i).checkString()));
+                if (!data.rawget("executables").isNil()) {
+                    LuaTable executables = data.rawget("executables").checkTable();
+                    for (int i = 1; i < executables.length() + 1; i++) {
+                        this.executables.add(new Identifier(executables.rawget(i).checkString()));
                     }
                 }
 
-                if (!data.rawget("importables").isNil()) {
-                    LuaTable importables = data.rawget("importables").checkTable();
-                    for (int i = 1; i < importables.length() + 1; i++) {
-                        this.importables.add(new Identifier(importables.rawget(i).checkString()));
+                if (!data.rawget("imports").isNil()) {
+                    LuaTable imports = data.rawget("imports").checkTable();
+                    for (int i = 1; i < imports.length() + 1; i++) {
+                        this.imports.add(new Identifier(imports.rawget(i).checkString()));
                     }
+                }
+
+                if (!data.rawget("dependencies").isNil()) {
+                    
                 }
             } catch (LuaError e) {
                 LuaDatapack.LOGGER.error("Error initializing project " + name + ". Invalid _project.lua format. Check documentation for proper format");
