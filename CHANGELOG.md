@@ -1,3 +1,8 @@
+## 0.10.2-beta
+
+* Fixed an issue where `print` and `print_db` would not use the `__tostring` metamethod if it exists
+    * [Bug report](https://github.com/kinderhead/LuaDatapack/issues/11)
+
 ## 0.10.1-beta
 
 * Fixed a bug where the mod would just not work

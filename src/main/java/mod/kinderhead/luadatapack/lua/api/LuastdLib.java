@@ -170,10 +170,23 @@ public class LuastdLib implements LuaLibrary {
             env.rawset("print", LuaUtils.varArgFunctionFactory((s, args) -> {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 1; i < args.count() + 1; i++) {
-                    if (args.arg(i).isTable()) {
-                        builder.append(LuaUtils.getNbtFromLua(args.arg(i)).toString());
+                    LuaValue arg = args.arg(i);
+                    if (arg.isTable()) {
+                        boolean hasToString = false;
+
+                        if (arg.getMetatable(s) != null) {
+                            LuaValue tostring = arg.getMetatable(s).rawget("__tostring");
+                            if (!tostring.isNil() && tostring.isFunction()) {
+                                builder.append(tostring.checkFunction().invoke(s, Constants.NIL).toString());
+                                hasToString = true;
+                            }
+                        }
+                        
+                        if (!hasToString) {
+                            builder.append(LuaUtils.getNbtFromLua(arg).toString());
+                        }
                     } else {
-                        builder.append(args.arg(i).toString());
+                        builder.append(arg.toString());
                     }
                     builder.append(" ");
                 }
@@ -185,10 +198,23 @@ public class LuastdLib implements LuaLibrary {
             env.rawset("print_db", LuaUtils.varArgFunctionFactory((s, args) -> {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 1; i < args.count() + 1; i++) {
-                    if (args.arg(i).isTable()) {
-                        builder.append(LuaUtils.getNbtFromLua(args.arg(i)).toString());
+                    LuaValue arg = args.arg(i);
+                    if (arg.isTable()) {
+                        boolean hasToString = false;
+
+                        if (arg.getMetatable(s) != null) {
+                            LuaValue tostring = arg.getMetatable(s).rawget("__tostring");
+                            if (!tostring.isNil() && tostring.isFunction()) {
+                                builder.append(tostring.checkFunction().invoke(s, Constants.NIL).toString());
+                                hasToString = true;
+                            }
+                        }
+                        
+                        if (!hasToString) {
+                            builder.append(LuaUtils.getNbtFromLua(arg).toString());
+                        }
                     } else {
-                        builder.append(args.arg(i).toString());
+                        builder.append(arg.toString());
                     }
                     builder.append(" ");
                 }

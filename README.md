@@ -1,6 +1,7 @@
 ![Logo](https://raw.githubusercontent.com/kinderhead/LuaDatapack/master/logo.png)
 
 [![Releases](https://img.shields.io/github/v/release/kinderhead/LuaDatapack?include_prereleases&sort=semver)](https://github.com/kinderhead/LuaDatapack/releases)
+[![Downloads](https://img.shields.io/modrinth/dt/bgUHPLzW)](https://modrinth.com/mod/luadatapack)
 
 # LuaDatapack
 
