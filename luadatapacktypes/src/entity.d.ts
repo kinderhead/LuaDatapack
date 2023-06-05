@@ -1,4 +1,4 @@
-/// <reference path='vec3d.d.ts'/>
+/// <reference path='vec.d.ts'/>
 /// <reference path='inventory.d.ts'/>
 /// <reference path='nbt.d.ts'/>
 
@@ -17,12 +17,12 @@ interface Entity {
     readonly echest : Inventory;
 
     /**
-     * Get position of an entity
+     * Get position of the entity
      */
     get_pos() : Vec3d;
 
     /**
-     * Set the position of an entity
+     * Set the position of the entity
      * 
      * @remarks
      * Uses `/tp` to set position
@@ -30,6 +30,18 @@ interface Entity {
      * @param pos Position
      */
     set_pos(pos : Vec3d) : void;
+
+    /**
+     * Gets the rotation of the entity
+     */
+    get_rot() : Vec2f;
+
+    /**
+     * Sets the rotation of the entity
+     * 
+     * @param rot Rotation
+     */
+    set_rot(rot : Vec2f) : void;
 
     /**
      * Get remaining air

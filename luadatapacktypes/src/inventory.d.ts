@@ -21,6 +21,11 @@ interface Inventory {
      * @param stack ItemStack
      */
     set(i : number, stack : ItemStack) : void;
+
+    /**
+     * Clears the inventory
+     */
+    clear() : void;
 }
 
 interface ItemStack {

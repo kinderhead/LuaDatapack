@@ -40,7 +40,7 @@ public class CommandsLib implements LuaLibrary {
                 case 0:
                     LuaDatapack.executeCommand(source, "reload");
                     break;
-                
+                    
                 case 1:
                     LuaDatapack.executeCommand(source, "seed");
 
@@ -88,12 +88,12 @@ public class CommandsLib implements LuaLibrary {
                     }
                     else if (args.count() == 1) {
                         entity = null;
-                        pos = MCLuaFactory.toVecd(args.arg(1));
+                        pos = MCLuaFactory.toVec3d(args.arg(1));
                         LuaDatapack.executeCommand(source, "tp " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
                     }
                     else {
                         entity = MCLuaFactory.toEntity(args.arg(1));
-                        pos = MCLuaFactory.toVecd(args.arg(2));
+                        pos = MCLuaFactory.toVec3d(args.arg(2));
                         LuaDatapack.executeCommand(source, "tp " + entity.getUuidAsString() + " " + String.valueOf(pos.x) + " " + String.valueOf(pos.y) + " " + String.valueOf(pos.z));
                     }
                     return Constants.NIL;

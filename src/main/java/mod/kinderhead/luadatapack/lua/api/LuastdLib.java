@@ -116,12 +116,12 @@ public class LuastdLib implements LuaLibrary {
             }));
 
             env.rawset("get_block", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
-                String id = Registries.BLOCK.getId(source.getWorld().getBlockState(new BlockPos(MCLuaFactory.toVeci(arg1))).getBlock()).toString();
+                String id = Registries.BLOCK.getId(source.getWorld().getBlockState(new BlockPos(MCLuaFactory.toVec3i(arg1))).getBlock()).toString();
                 return ValueFactory.valueOf(id);
             }));
 
             env.rawset("get_blockentity", LuaUtils.oneArgFunctionFactory((s, arg1) -> {
-                BlockEntity block = source.getWorld().getBlockEntity(new BlockPos(MCLuaFactory.toVeci(arg1)));
+                BlockEntity block = source.getWorld().getBlockEntity(new BlockPos(MCLuaFactory.toVec3i(arg1)));
                 LuaTable table = new LuaTable();
 
                 if (block == null) {
@@ -234,7 +234,7 @@ public class LuastdLib implements LuaLibrary {
                 }
                 nbt.putString("id", args.arg(1).checkString());
 
-                Vec3d pos = MCLuaFactory.toVecd(args.arg(2));
+                Vec3d pos = MCLuaFactory.toVec3d(args.arg(2));
 
                 Entity ret = EntityType.loadEntityWithPassengers(nbt, source.getWorld(), e -> {
                     e.refreshPositionAndAngles(pos.x, pos.y, pos.z, e.getYaw(), e.getPitch());

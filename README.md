@@ -5,13 +5,13 @@
 
 # LuaDatapack
 
-Allows lua scripts to be ran in Minecraft
+Allows lua scripts to be ran in Minecraft.
 
-Note: LuaDatapack is in beta, so the api is subject to change
+Note: LuaDatapack is in beta, so the api is subject to change.
 
 ## Usage
 
-Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.lua`
+Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.lua`.
 
 ## Features
 
@@ -30,15 +30,15 @@ Usage: `/lua <name> [<args>]`
 
 Example, to run `data/foo/lua/bar.lua`: `/lua foo:bar`
 
-Arguments can be accessed via an array called `args` in the lua script
+Arguments can be accessed via an array called `args` in the lua script.
 
 ## Api
 
-The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/)
+The api reference can be found [here](https://kinderhead.github.io/LuaDatapack/).
 
 ## Standard library
 
-A few utility libraries are included by default
+A few utility libraries are included by default.
 
 |Library|Path|
 |---|---|
@@ -52,11 +52,11 @@ A few utility libraries are included by default
 |Storage library|`std:storage`|
 |Configuration utilities library|`std:config`|
 
-Note: If you prefer a different OOP library, you can simply add one to your datapack
+Note: If you prefer a different OOP library, you can simply add one to your datapack.
 
 ## Project system
 
-There is a simple project system which allows for customization of which scripts can be executed and imported by external projects (scripts not in the same namespace)
+There is a simple project system which allows for customization of which scripts can be executed and imported by external projects (scripts not in the same namespace).
 
 To customize your project, add a `_project.lua` file to your namespace. For example if the namespace was `foo` then you would make a `foo:_project.lua`:
 
@@ -78,13 +78,13 @@ return {
 }
 ```
 
-Note: not all fields need to be explicitly defined
+Note: not all fields need to be explicitly defined.
 
-If a project fails to load, all scripts in it are unable to load
+If a project fails to load, all scripts in it are unable to load.
 
 ## Contributing
 
-Building this repo is the same as any other Fabric mod. There may be issues with libraries (Cobalt, Apache commons-io, etc) not loading when starting the game, but running the game though the VSCode debugger works for some reason
+Building this repo is the same as any other Fabric mod. There may be issues with libraries (Cobalt, Apache commons-io, etc) not loading when starting the game, but running the game though the VSCode debugger works for some reason.
 
 ### Things to do
 

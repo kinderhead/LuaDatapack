@@ -1,5 +1,7 @@
 ## 0.10.2-beta
 
+* New `inventory.clear` method
+* Reworked `entity.set_pos` and added `entity.get_rot` and 'entity.set_rot'
 * Fixed an issue where `print` and `print_db` would not use the `__tostring` metamethod if it exists
     * [Bug report](https://github.com/kinderhead/LuaDatapack/issues/11)
 

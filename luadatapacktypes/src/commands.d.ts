@@ -1,6 +1,6 @@
 /** @noSelfInFile */
 
-/// <reference path='vec3d.d.ts'/>
+/// <reference path='vec.d.ts'/>
 /// <reference path='entity.d.ts'/>
 
 interface Commands {

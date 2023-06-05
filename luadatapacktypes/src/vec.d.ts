@@ -8,3 +8,11 @@ interface Vec3d {
     y : number;
     z : number;
 }
+
+/**
+ * Wrapper for Minecraft's Vec2f
+ */
+interface Vec2f {
+    x : number;
+    y : number;
+}

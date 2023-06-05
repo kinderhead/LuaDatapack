@@ -10,7 +10,6 @@ import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaUserdata;
 import org.squiddev.cobalt.LuaValue;
 
-import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
 import net.minecraft.command.EntityDataObject;
 import net.minecraft.entity.Entity;
@@ -23,6 +22,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
@@ -54,7 +54,16 @@ public class MCLuaFactory {
         return table;
     }
 
-    public static Vec3i toVeci(LuaValue val) {
+    public static LuaValue get(Vec2f vec) {
+        LuaTable table = new LuaTable();
+
+        table.rawset("x", valueOf(vec.x));
+        table.rawset("y", valueOf(vec.y));
+
+        return table;
+    }
+
+    public static Vec3i toVec3i(LuaValue val) {
         try {
             return new Vec3i(val.checkTable().rawget("x").checkInteger(), val.checkTable().rawget("y").checkInteger(), val.checkTable().rawget("z").checkInteger());
         } catch (LuaError e) {
@@ -63,9 +72,18 @@ public class MCLuaFactory {
         }
     }
 
-    public static Vec3d toVecd(LuaValue val) {
+    public static Vec3d toVec3d(LuaValue val) {
         try {
             return new Vec3d(val.checkTable().rawget("x").checkDouble(), val.checkTable().rawget("y").checkDouble(), val.checkTable().rawget("z").checkDouble());
+        } catch (LuaError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Vec2f toVec2f(LuaValue val) {
+        try {
+            return new Vec2f((float)val.checkTable().rawget("x").checkDouble(), (float)val.checkTable().rawget("y").checkDouble());
         } catch (LuaError e) {
             e.printStackTrace();
             return null;
@@ -75,14 +93,29 @@ public class MCLuaFactory {
     public static LuaValue get(Entity entity) {
         LuaTable table = new LuaTable();
 
-        table.rawset("get_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+        table.rawset("get_pos", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
             Entity self = toEntity(arg1);
             return get(self.getPos());
         }));
 
         table.rawset("set_pos", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
             Entity self = toEntity(arg1);
-            LuaDatapack.executeCommand(LuaDatapack.SERVER.getCommandSource().withEntity(self), "tp " + arg2.checkTable().rawget("x").checkDouble() + " " + arg2.checkTable().rawget("y").checkDouble() + " " + arg2.checkTable().rawget("z").checkDouble());
+            Vec3d pos = toVec3d(arg2);
+            self.refreshPositionAndAngles(pos.x, pos.y, pos.z, self.getYaw(), self.getPitch());
+            self.setHeadYaw(self.getYaw());
+            return null;
+        }));
+
+        table.rawset("get_rot", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            Entity self = toEntity(arg1);
+            return get(new Vec2f(self.getYaw(), self.getPitch()));
+        }));
+
+        table.rawset("set_rot", LuaUtils.twoArgFunctionFactory((state, arg1, arg2) -> {
+            Entity self = toEntity(arg1);
+            Vec2f rot = toVec2f(arg2);
+            self.refreshPositionAndAngles(self.getX(), self.getY(), self.getZ(), rot.x, rot.y);
+            self.setHeadYaw(rot.x);
             return null;
         }));
 
@@ -220,6 +253,12 @@ public class MCLuaFactory {
         table.rawset("set", LuaUtils.threeArgFunctionFactory((state, arg1, arg2, arg3) -> {
             Inventory self = toInventory(arg1);
             self.setStack(arg2.checkInteger(), toItemStack(arg3.checkTable()));
+            return Constants.NIL;
+        }));
+
+        table.rawset("clear", LuaUtils.oneArgFunctionFactory((state, arg1) -> {
+            Inventory self = toInventory(arg1);
+            self.clear();
             return Constants.NIL;
         }));
 
