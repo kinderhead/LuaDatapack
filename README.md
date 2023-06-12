@@ -17,7 +17,7 @@ Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.l
 
 * Uses [Cobalt](https://github.com/SquidDev/Cobalt) under the hood, which gives fast execution times
 * Scripts can be included from datapacks using `require` and use Minecraft's namespaced id system
-* [TypeScriptToLua](https://typescripttolua.github.io/) supprt
+* [TypeScriptToLua](https://typescripttolua.github.io/) support
 * Supports a few common utility libraries
     * [json.lua](https://github.com/rxi/json.lua)
     * [class.lua](https://github.com/jonstoler/class.lua)
