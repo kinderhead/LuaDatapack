@@ -1,3 +1,8 @@
+## 0.11.0-beta
+
+* 1.20 + 1.20.1 support
+* `load` and `tick` fields in `_project.lua`
+
 ## 0.10.2-beta
 
 * New `inventory.clear` method
