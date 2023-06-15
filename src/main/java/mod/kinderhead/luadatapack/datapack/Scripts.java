@@ -69,5 +69,15 @@ public class Scripts {
         for (Project i : failed) {
             projects.values().remove(i);
         }
+
+        for (Project i : projects.values()) {
+            i.runLoad();
+        }
+    }
+
+    public static void tickAll() {
+        for (Project i : projects.values()) {
+            i.runTick();
+        }
     }
 }

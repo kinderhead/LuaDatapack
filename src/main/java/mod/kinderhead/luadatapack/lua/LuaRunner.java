@@ -48,7 +48,6 @@ public class LuaRunner {
 
         _G.rawset("filename", ValueFactory.valueOf(name));
 
-        LuaDatapack.LOGGER.info("Running lua script: " + name);
         try {
             ret.set(LoadState.load(state, new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), name, _G).call(state));
             return true;

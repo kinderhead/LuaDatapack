@@ -11,6 +11,7 @@ import org.squiddev.cobalt.LuaTable;
 import org.squiddev.cobalt.LuaValue;
 import org.squiddev.cobalt.ValueFactory;
 
+import mod.kinderhead.luadatapack.LuaCommand;
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaRunner;
 import mod.kinderhead.util.Out;
@@ -21,6 +22,8 @@ public class Project {
     private List<Identifier> scripts = new ArrayList<>();
     private List<Identifier> exports = new ArrayList<>();
     private List<String> depends = new ArrayList<>();
+    private List<Identifier> loadScripts = new ArrayList<>();
+    private List<Identifier> tickScripts = new ArrayList<>();
 
     public final String name;
 
@@ -52,9 +55,31 @@ public class Project {
         return depends;
     }
 
+    public void runLoad() {
+        for (Identifier i : loadScripts) {
+            try {
+                LuaCommand.exec(get(i), i.toString(), LuaDatapack.SERVER.getCommandSource(), new LuaValue[]{}, new Out<LuaValue>());
+            } catch (LuaError e) {
+                LuaDatapack.LOGGER.error("Error in script " + i.toString(), e);
+            }
+        }
+    }
+
+    public void runTick() {
+        for (Identifier i : tickScripts) {
+            try {
+                LuaCommand.exec(get(i), i.toString(), LuaDatapack.SERVER.getCommandSource(), new LuaValue[]{}, new Out<LuaValue>());
+            } catch (LuaError e) {
+                LuaDatapack.LOGGER.error("Error in script " + i.toString(), e);
+            }
+        }
+    }
+
     public boolean init() {
         scripts.clear();
         exports.clear();
+        loadScripts.clear();
+        tickScripts.clear();
 
         Identifier file;
         if (has(new Identifier(name, "_project"))) {
@@ -99,6 +124,30 @@ public class Project {
                     LuaTable depends = data.rawget("depends").checkTable();
                     for (int i = 1; i < depends.length() + 1; i++) {
                         this.depends.add(depends.rawget(i).checkString());
+                    }
+                }
+
+                if (!data.rawget("load").isNil()) {
+                    LuaTable load = data.rawget("load").checkTable();
+                    for (int i = 1; i < load.length() + 1; i++) {
+                        Identifier id = new Identifier(load.rawget(i).checkString());
+                        if (!has(id)) {
+                            LuaDatapack.LOGGER.warn(id.toString() + " does not exist");
+                            continue;
+                        }
+                        this.loadScripts.add(id);
+                    }
+                }
+
+                if (!data.rawget("tick").isNil()) {
+                    LuaTable tick = data.rawget("tick").checkTable();
+                    for (int i = 1; i < tick.length() + 1; i++) {
+                        Identifier id = new Identifier(tick.rawget(i).checkString());
+                        if (!has(id)) {
+                            LuaDatapack.LOGGER.warn(id.toString() + " does not exist");
+                            continue;
+                        }
+                        this.tickScripts.add(id);
                     }
                 }
             } catch (LuaError e) {

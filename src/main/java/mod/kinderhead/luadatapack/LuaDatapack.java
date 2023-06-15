@@ -3,6 +3,7 @@ package mod.kinderhead.luadatapack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
@@ -15,6 +16,7 @@ import org.squiddev.cobalt.LuaState;
 import org.squiddev.cobalt.LuaTable;
 
 import mod.kinderhead.luadatapack.datapack.ReloadListener;
+import mod.kinderhead.luadatapack.datapack.Scripts;
 import mod.kinderhead.luadatapack.lua.api.StorageLib;
 
 public class LuaDatapack implements ModInitializer {
@@ -30,11 +32,16 @@ public class LuaDatapack implements ModInitializer {
 
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 			SERVER = server;
+
 			StorageLib.Init();
 		});
 
 		ServerLifecycleEvents.SERVER_STOPPED.register((server) -> {
 			SERVER = null;
+		});
+
+		ServerTickEvents.START_SERVER_TICK.register((server) -> {
+			Scripts.tickAll();
 		});
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {

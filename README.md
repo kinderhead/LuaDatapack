@@ -64,7 +64,10 @@ To customize your project, add a `_project.lua` file to your namespace. For exam
 return {
     scripts = {"foo:bar"},
     exports = {"foo:baz"},
-    depends = {"hello"}
+    depends = {"hello"},
+
+    load = {"foo:load"},
+    tick = {"foo:tick"}
 }
 ```
 

@@ -46,7 +46,7 @@ public class LuaCommand {
 
         String code = Scripts.get(id);
         if (code == null) {
-            ctx.getSource().sendFeedback(Text.translatable("text.luadatapack.file_not_found", id.toString()), false);
+            ctx.getSource().sendFeedback(() -> Text.translatable("text.luadatapack.file_not_found", id.toString()), false);
             return -1;
         }
 
@@ -54,7 +54,7 @@ public class LuaCommand {
 
         try {
             if (exec(code, id.toString(), ctx.getSource(), args, out) == -1) {
-                ctx.getSource().sendFeedback(Text.translatable("text.luadatapack.lua_error", id.toString()), false);
+                ctx.getSource().sendFeedback(() -> Text.translatable("text.luadatapack.lua_error", id.toString()), false);
                 return -1;
             }
         } catch (LuaError e) {
