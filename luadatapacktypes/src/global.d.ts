@@ -60,7 +60,7 @@ declare function get_blockentity(pos : Vec3d) : BlockEntity;
  * Places a block at a position
  * 
  * @remarks
- * This uses `/setblock replace`, so any valid [block_state](https://minecraft.fandom.com/wiki/Argument_types#block_state) will work
+ * This uses `/setblock replace`, so any valid [block_state](https://minecraft.wiki/w/Argument_types#block_state) will work
  * 
  * @param pos Position
  * @param id Block
