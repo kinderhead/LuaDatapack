@@ -9,6 +9,8 @@ Allows lua scripts to be ran in Minecraft.
 
 Note: LuaDatapack is in beta, so the api is subject to change.
 
+I currently don't plan on working on this project much more. Instead I've been making a dedicated programming language that compiles to Minecraft commands called [Amethyst](https://github.com/kinderhead/Amethyst/). It's more useful than this because it doesn't require a dedicated mod.
+
 ## Usage
 
 Create a new datapack with the `lua` subfolder. For example: `data/foo/lua/bar.lua`.
