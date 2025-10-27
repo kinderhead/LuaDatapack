@@ -7,6 +7,7 @@ import org.squiddev.cobalt.LuaValue;
 
 import mod.kinderhead.luadatapack.LuaDatapack;
 import mod.kinderhead.luadatapack.lua.LuaUtils;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.PersistentState;
@@ -15,6 +16,12 @@ import net.minecraft.world.World;
 
 public class StorageState extends PersistentState {
     public HashMap<Identifier, LuaValue> data = new HashMap<>();
+
+    static PersistentState.Type<StorageState> type = new PersistentState.Type<StorageState>(
+        StorageState::new,
+        StorageState::create,
+        DataFixTypes.LEVEL
+    );
 
     public static StorageState create(NbtCompound nbt) {
         LuaDatapack.LOGGER.info("Loading storage");
@@ -44,6 +51,6 @@ public class StorageState extends PersistentState {
     public static StorageState get() {
         PersistentStateManager manager = LuaDatapack.SERVER.getWorld(World.OVERWORLD).getPersistentStateManager();
 
-        return manager.getOrCreate(StorageState::create, StorageState::new, "luadatapack");
+        return manager.getOrCreate(StorageState.type, "luadatapack");
     }
 }

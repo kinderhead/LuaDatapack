@@ -51,8 +51,8 @@ public class LuaDatapack implements ModInitializer {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ReloadListener());
 	}
 
-	public static int executeCommand(ServerCommandSource source, String cmd) {
-		return SERVER.getCommandManager().executeWithPrefix(source, cmd);
+	public static void executeCommand(ServerCommandSource source, String cmd) {
+		SERVER.getCommandManager().executeWithPrefix(source, cmd);
 	}
 
 	public static boolean broadcast(Text msg) {
